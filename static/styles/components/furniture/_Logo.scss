@@ -1,0 +1,11 @@
+.logo {
+  color: $white;
+  font-size: $lh;
+  line-height: $lh;
+  font-weight: 500;
+  display: block;
+  &:hover {
+    color: $white;
+    text-decoration: none;
+  }
+}

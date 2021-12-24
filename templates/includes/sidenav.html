@@ -1,0 +1,24 @@
+<div class=" padding--top--1-5 padding--right--1 padding--bottom--1-5 padding--left--1 mobile-padding--bottom--0-5">
+    <a class="logo active" href="{% url 'index' %}">Leaving Well</a>
+</div>
+<nav class="nav">
+    <ul>
+        <li>
+            <a class="nav__element nav__element__home" href="/">
+                <svg width="18px" height="18px" viewBox="0 0 48 48">
+                    <path d="M20 40V28h8v12h10V24h6L24 6 4 24h6v16z"></path>
+                </svg>
+                HOME
+            </a>
+        </li>
+
+        {% for n in nav %}
+            <li>
+                <a class="nav__element {% if n.current %}nav__element--active {% endif %}"
+                   href="{% url n.id %}"
+                   {% if n.current %}aria-current="page"{% endif %}
+                >{{n.name}}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</nav>

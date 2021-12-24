@@ -1,0 +1,53 @@
+.loader{
+  width: 100%;
+  max-width: 50%;
+  text-align: center;
+  padding: $lh*4;
+  margin: 0 auto;
+
+  &__load {
+   width: 200px;
+   display: inline-block;
+  }
+
+  .MuiLinearProgress-indeterminate{
+    background-color: $green;
+  }
+
+  .MuiLinearProgress-bar1Indeterminate{
+    background-color: $green-dark;
+  }
+
+  .MuiLinearProgress-bar2Indeterminate{
+    background-color: $green-dark;
+  }
+
+
+  .MuiCircularProgress-circle {
+    stroke: $green-dark;
+  }
+
+
+  &--login {
+    margin: 0 auto;
+
+    .MuiLinearProgress-indeterminate{
+      background-color: $grey-xlight;
+    }
+
+    .MuiLinearProgress-bar1Indeterminate{
+      background-color: $green-dark;
+    }
+
+    .MuiLinearProgress-bar2Indeterminate{
+      background-color: $green-dark;
+    }
+  }
+
+  &--inline {
+    padding: 0;
+    margin: 0;
+    text-align: left;
+  }
+
+}

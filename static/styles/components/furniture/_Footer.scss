@@ -1,0 +1,47 @@
+.main-body {
+  min-height: 100vh;
+  position: relative;
+  background: white;
+  width: 100%;
+  max-width: 1200px;
+  padding-bottom: 300px;
+  @include media-breakpoint-up(md) {
+    padding-left: 120px;
+  }
+  @include media-breakpoint-up(xl) {
+    padding-left: 0px;
+  }
+}
+
+footer {
+  min-height: 12*$lh;
+  background-color: $grey-light;
+  padding: $lh*1.5;
+  border-top: 2*$lh solid transparent;
+  max-width: 1200px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+
+  ul {
+    padding: 0;
+    margin: 0;
+    li {
+      list-style: none;
+      a {
+        font-weight: 400;
+        color: $green-dark;
+        text-decoration: underline;
+        display: inline-block;
+        line-height: $lh;
+        padding-bottom: $lh;
+        transition: color .25s ease;
+        &:hover {
+          color: $green-xdark;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+}

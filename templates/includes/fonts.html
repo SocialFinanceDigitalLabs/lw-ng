@@ -1,0 +1,148 @@
+{% load static %}
+
+<style>
+@font-face {
+    font-family: 'Public Sans';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 900;
+    src: local('Public Sans'), url({% static 'fonts/PublicSans-Black.woff2' %}) format('woff2'), url({% static 'fonts/PublicSans-Black.woff' %}) format('woff')
+}
+
+@font-face {
+    font-family: 'Public Sans';
+    font-style: Italic;
+    font-display: swap;
+    font-weight: 900;
+    src: local('Public Sans'), url({% static 'fonts/PublicSans-BlackItalic.woff2' %}) format('woff2'), url({% static 'fonts/PublicSans-BlackItalic.woff' %}) format('woff')
+}
+
+@font-face {
+    font-family: 'Public Sans';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 700;
+    src: local('Public Sans'), url({% static 'fonts/PublicSans-Bold.woff2' %}) format('woff2'), url({% static 'fonts/PublicSans-Bold.woff' %}) format('woff')
+}
+
+@font-face {
+    font-family: 'Public Sans';
+    font-style: Italic;
+    font-display: swap;
+    font-weight: 700;
+    src: local('Public Sans'), url({% static 'fonts/PublicSans-BoldItalic.woff2' %}) format('woff2'), url({% static 'fonts/PublicSans-BoldItalic.woff' %}) format('woff')
+}
+
+@font-face {
+    font-family: 'Public Sans';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 800;
+    src: local('Public Sans'), url({% static 'fonts/PublicSans-ExtraBold.woff2' %}) format('woff2'), url({% static 'fonts/PublicSans-ExtraBold.woff' %}) format('woff')
+}
+
+@font-face {
+    font-family: 'Public Sans';
+    font-style: Italic;
+    font-display: swap;
+    font-weight: 800;
+    src: local('Public Sans'), url({% static 'fonts/PublicSans-ExtraBoldItalic.woff2' %}) format('woff2'), url({% static 'fonts/PublicSans-ExtraBoldItalic.woff' %}) format('woff')
+}
+
+@font-face {
+    font-family: 'Public Sans';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 200;
+    src: local('Public Sans'), url({% static 'fonts/PublicSans-ExtraLight.woff2' %}) format('woff2'), url({% static 'fonts/PublicSans-ExtraLight.woff' %}) format('woff')
+}
+
+@font-face {
+    font-family: 'Public Sans';
+    font-style: Italic;
+    font-display: swap;
+    font-weight: 200;
+    src: local('Public Sans'), url({% static 'fonts/PublicSans-ExtraLightItalic.woff2' %}) format('woff2'), url({% static 'fonts/PublicSans-ExtraLightItalic.woff' %}) format('woff')
+}
+
+@font-face {
+    font-family: 'Public Sans';
+    font-style: Italic;
+    font-display: swap;
+    font-weight: 400;
+    src: local('Public Sans'), url({% static 'fonts/PublicSans-Italic.woff2' %}) format('woff2'), url({% static 'fonts/PublicSans-Italic.woff' %}) format('woff')
+}
+
+@font-face {
+    font-family: 'Public Sans';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 300;
+    src: local('Public Sans'), url({% static 'fonts/PublicSans-Light.woff2' %}) format('woff2'), url({% static 'fonts/PublicSans-Light.woff' %}) format('woff')
+}
+
+@font-face {
+    font-family: 'Public Sans';
+    font-style: Italic;
+    font-display: swap;
+    font-weight: 300;
+    src: local('Public Sans'), url({% static 'fonts/PublicSans-LightItalic.woff2' %}) format('woff2'), url({% static 'fonts/PublicSans-LightItalic2.woff' %}) format('woff')
+}
+
+@font-face {
+    font-family: 'Public Sans';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 500;
+    src: local('Public Sans'), url({% static 'fonts/PublicSans-Medium.woff2' %}) format('woff2'), url({% static 'fonts/PublicSans-Medium.woff' %}) format('woff')
+}
+
+@font-face {
+    font-family: 'Public Sans';
+    font-style: Italic;
+    font-display: swap;
+    font-weight: 500;
+    src: local('Public Sans'), url({% static 'fonts/PublicSans-MediumItalic.woff2' %}) format('woff2'), url({% static 'fonts/PublicSans-MediumItalic.woff' %}) format('woff')
+}
+
+@font-face {
+    font-family: 'Public Sans';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    src: local('Public Sans'), url({% static 'fonts/PublicSans-Regular.woff2' %}) format('woff2'), url({% static 'fonts/PublicSans-Regular.woff' %}) format('woff')
+}
+
+@font-face {
+    font-family: 'Public Sans';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 600;
+    src: local('Public Sans'), url({% static 'fonts/PublicSans-SemiBold.woff2' %}) format('woff2'), url({% static 'fonts/PublicSans-SemiBold.woff' %}) format('woff')
+}
+
+@font-face {
+    font-family: 'Public Sans';
+    font-style: Italic;
+    font-display: swap;
+    font-weight: 600;
+    src: local('Public Sans'), url({% static 'fonts/PublicSans-SemiBoldItalic.woff2' %}) format('woff2'), url({% static 'fonts/PublicSans-SemiBoldItalic.woff' %}) format('woff')
+}
+
+@font-face {
+    font-family: 'Public Sans';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 100;
+    src: local('Public Sans'), url({% static 'fonts/PublicSans-Thin.woff2' %}) format('woff2'), url({% static 'fonts/PublicSans-Thin.woff' %}) format('woff')
+}
+
+@font-face {
+    font-family: 'Public Sans';
+    font-style: Italic;
+    font-display: swap;
+    font-weight: 100;
+    src: local('Public Sans'), url({% static 'fonts/PublicSans-ThinItalic.woff2' %}) format('woff2'), url({% static 'fonts/PublicSans-ThinItalic.woff' %}) format('woff')
+}
+
+</style>

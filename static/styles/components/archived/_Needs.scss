@@ -1,0 +1,30 @@
+.archived{
+  &__needs-overview-item{
+    border-top: 1px solid $grey-light;
+
+    &:last-child{
+      border-bottom: 1px solid $grey-light;
+    } 
+  }
+
+  &__date-group-title{
+    text-align: left;
+    color: $grey-dark;
+  }
+
+    &__link {
+      list-style: none;
+      a {
+        font-weight: 400;
+        color: $green-dark;
+        text-decoration: underline;
+        display: block;
+        line-height: $lh;
+        transition: color .25s ease;
+        &:hover {
+          color: $green;
+        }
+      }
+    }
+
+}

@@ -1,0 +1,9 @@
+body {
+  min-height: 100%;
+}
+
+a, button {
+  &:focus {
+    outline: none;
+  }
+}

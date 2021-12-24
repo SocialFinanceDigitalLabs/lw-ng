@@ -1,0 +1,57 @@
+.form-element--text-field {
+  position: relative;
+  &__input {
+    border-radius: 0;
+    appearance: none;
+    display: block;
+    border: none;
+    border-bottom: .2rem solid $black;
+    width: 100%;
+    color: $black;
+    font-size: $lh*.75;
+    line-height: 1.5*$lh;
+    height: 1.5*$lh;
+    outline: none;
+    padding: 0;
+    &:focus {
+      border-color: $green;
+    }
+    &::placeholder {
+      color: $black;
+    }
+    @include media-breakpoint-up(sm) {
+      font-size: $lh;
+      line-height: 2*$lh;
+      height: 2*$lh;
+    }
+    &--smallText {
+      font-size: 1.8rem;
+      line-height: $lh;
+      border: .2rem solid $black;
+      outline: 2px solid transparent;
+      padding: 1rem;
+      height: 3*$lh;
+      resize: none;
+
+       &:focus {
+        outline: 2px solid $green;
+        border: 2px solid $black;
+        outline-offset: 0;
+
+      }
+    }
+    &--internalInput {
+      border: 2px solid $black;
+      outline: 2px solid transparent;
+      padding: 1rem;
+      font-size: 1.9rem;
+
+      &:focus {
+        outline: 2px solid $green;
+        border: 2px solid $black;
+        outline-offset: 0;
+
+      }
+    }
+  }
+}

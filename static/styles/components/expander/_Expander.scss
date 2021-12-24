@@ -1,0 +1,85 @@
+.expander {
+  &__content {
+   min-height: 80px;
+   overflow: hidden;
+   transition: all 0.5s ease-in-out;
+
+    &--active {
+      height: 300px;
+    }
+
+  }
+
+  position: relative;
+  border-bottom: 1px solid $grey-light;
+
+
+  &__control {
+    position: absolute;
+    //where is this getting a phantom 1 px?
+    bottom: -49px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    transition: bottom 0.5s ease-in-out;
+    z-index: 10;
+
+    &-invisible {
+      position: absolute;
+      height: 200px;
+      width: 100%;
+      background: transparent;
+      left: 0;
+      bottom: 0;
+      cursor: pointer;
+    }
+
+
+    &-inner {
+      display: inline-block;
+      padding: $lh/2 $lh * 2 $lh/2 $lh;
+      background: $grey-light;
+      position: relative;
+
+      &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 18px;
+        right: 28px;
+        width: 10px;
+        height: 10px;
+        transform: rotate(225deg);
+        border-left: 2px solid $grey-dark;
+        border-top: 2px solid $grey-dark;
+
+        transition: transform 0.4s ease-in-out;
+      }
+    }
+  }
+}
+
+.expander--open {
+    /*&:after {
+        display: block;
+        position: absolute;
+        height: 0px;
+        content: '';
+        background: linear-gradient(0deg, rgba(255,255,255,.7) 0%, rgba(255,255,255,0) 100%);
+      }*/
+
+    .expander__control {
+      bottom: 0;
+
+      &-invisible {
+      display: none
+    }
+
+      &-inner {
+        &:after {
+          top: 22px;
+          transform: rotate(45deg);
+        }
+      }
+    }
+  }

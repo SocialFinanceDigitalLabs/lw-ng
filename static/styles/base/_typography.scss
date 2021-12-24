@@ -1,0 +1,200 @@
+html {
+  font-size: 62.5%;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  outline: none;
+  letter-spacing: -0.3px;
+}
+
+@mixin base-font {
+
+  line-height: $lh;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+  font-size: 1.7rem;
+  @include media-breakpoint-up(md) {
+    font-weight: 300;
+    font-size: 1.9rem;
+  }
+}
+
+body {
+  font-family: 'Public Sans', sans-serif;
+  @include base-font;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  @include base-font;
+  padding: 0 0 $lh 0;
+  font-weight: 200;
+  strong {
+    font-weight: 700;
+  }
+}
+
+@mixin no-padding {
+  padding-bottom: 0px;
+}
+
+@mixin h1 {
+  font-size: 3.6rem;
+  padding-bottom: $lh;
+  font-weight: 700;
+  line-height: 1.5*$lh;
+  @include media-breakpoint-up(sm) {
+    padding-bottom: 2*$lh;
+    line-height: 2*$lh;
+  }
+
+   &.no-padding {
+    @include no-padding();
+  }
+}
+
+@mixin h2 {
+  font-size: 2.7rem;
+  line-height: $lh;
+  padding-bottom: $lh;
+  font-weight: 700;
+  @include media-breakpoint-up(sm) {
+    line-height: 1.5*$lh;
+    padding-bottom: 1.5*$lh;
+  }
+
+   &.no-padding {
+    @include no-padding();
+  }
+}
+
+@mixin h3 {
+  font-size: 2.2rem;
+  line-height: $lh;
+  padding-bottom: $lh;
+  font-weight: 500;
+  @include media-breakpoint-up(md) {
+    line-height: 1.5*$lh;
+    padding-bottom: 1.5*$lh;
+  }
+  &.bold {
+    font-weight: 700;
+  }
+  &.no-padding {
+    @include no-padding();
+  }
+}
+
+@mixin h4 {
+  font-size: 2.0rem;
+  line-height: $lh;
+  padding-bottom: .5*$lh;
+  font-weight: 500;
+  @include media-breakpoint-up(sm) {
+    line-height: 1.5*$lh;
+    padding-bottom: 1.5*$lh;
+  }
+
+   &.no-padding {
+    @include no-padding();
+  }
+}
+
+
+
+h1, .h1 {
+  @include h1;
+}
+
+h2, .h2 {
+  @include h2;
+
+  &.normal {
+    font-weight: 400;
+  }
+}
+
+h3, .h3 {
+  @include h3;
+
+  &.bold {
+    font-weight: bold
+  }
+}
+
+h4, .h4 {
+  @include h4;
+
+  &.bold {
+    font-weight: bold;
+  }
+}
+
+p {
+  &.small {
+    font-size: 1.6rem;
+    line-height: $lh;
+  }
+
+  &.xsmall {
+    font-size: 1rem;
+    line-height: $lh/2;
+  }
+  &.center {
+    text-align: center;
+  }
+  &.error {
+    color: $red;
+  }
+}
+
+.b-700 {
+  font-weight: 700 !important;
+}
+
+.b-500 {
+  font-weight: 500 !important;
+}
+
+.word-wrap-break-word {
+  word-wrap: break-word;
+  white-space:normal;
+}
+
+.no-padding-bottom {
+  padding-bottom: 0 !important;
+}
+
+.mobile-no-padding-bottom {
+  @include media-breakpoint-down(md) {
+    padding-bottom: 0 !important;
+  }
+}
+
+.mobile-half-padding-bottom {
+  @include media-breakpoint-down(md) {
+    padding-bottom: $lh/2 !important;
+  }
+}
+
+.mobile-quarter-padding-bottom {
+  @include media-breakpoint-down(md) {
+    padding-bottom: $lh/4 !important;
+  }
+}
+
+.half-padding-bottom {
+  padding-bottom: $lh/2 !important;
+}
+
+.mobile-small {
+  @include media-breakpoint-down(md) {
+    line-height: $lh*.85;
+    font-size: $lh/2;
+  }
+}
+@each $name, $value in $colours {
+  .color--#{$name} {
+    color: $value !important;
+  }
+}

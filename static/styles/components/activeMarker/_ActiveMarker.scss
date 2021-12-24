@@ -1,0 +1,14 @@
+.active-marker {
+  width: $lh;
+  height: $lh;
+  background: $grey-light;
+  border-radius: 50%;
+  display: block;
+  &--active {
+    background: $green;
+  }
+  @include media-breakpoint-down(sm) {
+    width: $lh;
+    height: $lh;
+  }
+}

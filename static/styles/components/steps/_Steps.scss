@@ -1,0 +1,30 @@
+.steps {
+  width: 100%;
+  text-align: left;
+  margin: 0;
+  padding: 0;
+  height: 20px;
+  @include media-breakpoint-up(md) {
+    height: 20px;
+  }
+  .steps__item {
+    padding: 0;
+    display: inline-block;
+    list-style: none;
+    background: $grey-xlight;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    margin: 0 5px;
+    @include media-breakpoint-up(md) {
+      width: 20px;
+      height: 20px;
+      margin: 0 20px 0 0;
+    }
+    &--complete {
+      background-color: $green-dark;
+    }
+
+  }
+
+}

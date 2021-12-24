@@ -1,0 +1,75 @@
+.drop-down-options {
+    z-index: 20;
+    position: absolute;
+    top: $lh*1.5;
+    right: 0;
+    width: 260px;
+    border-radius: 2px;
+    background: $white;
+    box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.24);
+    display: none;
+
+    @include media-breakpoint-down(sm) {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+    }
+    &--visible {
+      display: block;
+    }
+    &__closeButton {
+      cursor: pointer;
+      font-size: $lh*1.5;
+      display: block;
+      text-align: right;
+      padding: $lh/4;
+      color: $grey-mid;
+    }
+    dl {
+      margin: 0;
+      padding: 0 0 0 0;
+      dt {
+        padding-bottom: $lh/2;
+        text-align: center;
+      }
+      dd {
+        border-top: 1px solid $grey-xlight;
+        margin: 0 $lh;
+        padding: 0;
+        span {
+          margin: 0 -1*$lh;
+          padding: 0 $lh;
+          line-height: 1.75*$lh;
+          display: block;
+          cursor: pointer;
+          &:hover {
+            background: $grey-light;
+          }
+        }
+
+      }
+    }
+    &__option--selected {
+      span {
+        background: $green;
+        /*&:hover {
+          background: $green-dark !important;
+          color: $white;
+        }*/
+      }
+    }
+}
+
+.drop-down-options-mask {
+  @include media-breakpoint-down(sm) {
+    background: rgba(0,0,0,.75);
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 19;
+  }
+
+}

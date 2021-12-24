@@ -1,0 +1,98 @@
+@mixin unset($colour) {
+  position: relative;
+  box-shadow: unquote($colour) 0px 0px 0px 0px !important;
+  background: unquote($colour) !important;
+}
+
+@mixin checked($colour) {
+  position: relative;
+  box-shadow: unquote($colour) 0px 0px 0px 0px !important;
+  background: unquote($colour) !important;
+
+  &:after {
+    display: block;
+    content: '';
+    position: absolute;
+    border-left: 2px solid white;
+    border-bottom: 2px solid white;
+    width: 18px;
+    height: 10px;
+    transform: rotate(-45deg);
+    left: 10px;
+    top: 12px;
+    box-shadow:-1px 1px 0px 1px rgba(0, 0, 0, 0.4);
+  }
+}
+
+.colour-picker {
+  position: relative;
+  width: 280px;
+  &__dialog {
+    @include drop-shadow();
+
+    width: 280px;
+    height: 380px;
+    position: absolute;
+    background: white;
+    right: -280px;
+    top: -160px;
+    padding: $lh * 2 $lh $lh;
+    @include media-breakpoint-down(sm) {
+      z-index: 11;
+      position: fixed;
+      top: 50vh;
+      left: $lh;
+       transform: translateY(-50%);
+    }
+  }
+
+  &__close-dialog {
+    right: 10px;
+    top: 10px;
+    position: absolute;
+
+    svg {
+      path {
+        fill: $grey-mid;
+      }
+    }
+  }
+
+
+
+  @each $colour in $profile-colours {
+    div[title="##{unquote($colour)}"]{
+      @include unset("##{unquote($colour)}");
+    }
+
+    &--picked_#{unquote($colour)} {
+    div[title="##{unquote($colour)}"] {
+      @include checked("##{unquote($colour)}");
+      }
+    }
+  }
+}
+
+.colour-picker__save {
+  text-align: center;
+}
+
+.circle-picker {
+  div {
+    box-shadow-spread: 0px !important;
+  }
+}
+
+.color-picker-bg-mask {
+  @include media-breakpoint-down(sm) {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba($grey-dark,.85);
+    z-index: 10;
+  }
+}

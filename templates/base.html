@@ -1,0 +1,26 @@
+{% load static %}
+{% load compress %}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAABILAAASCwAAAAAAAAAAAACq11b/qtdW/6rXVv+q11b/qtdW/6rXVv+q11b/qtdW/2eBE/9ngRP/Z4ET/2eBE/9ngRP/Z4ET/2eBE/9ngRP/qtdW/6rXVv+q11b/qtdW/6rXVv+q11b/qtdW/6rXVv9ngRP/Z4ET/2eBE/9ngRP/Z4ET/2eBE/9ngRP/Z4ET/6rXVv+q11b/qtdW/6rXVv+q11b/qtdW/6rXVv+q11b/Z4ET/2eBE/9ngRP/Z4ET/2eBE/9ngRP/Z4ET/2eBE/+q11b/qtdW/6rXVv+q11b/qtdW/6rXVv+q11b/qtdW/2eBE/9ngRP/Z4ET/2eBE/9ngRP/Z4ET/2eBE/9ngRP/qtdW/6rXVv+q11b/qtdW/6rXVv+q11b/qtdW/6rXVv9ngRP/Z4ET/2eBE/9ngRP/Z4ET/2eBE/9ngRP/Z4ET/6rXVv+q11b/qtdW/6rXVv+q11b/qtdW/6rXVv+q11b/Z4ET/2eBE/9ngRP/Z4ET/2eBE/9ngRP/Z4ET/2eBE/+q11b/qtdW/6rXVv+q11b/qtdW/6rXVv+q11b/qtdW/2eBE/9ngRP/Z4ET/2eBE/9ngRP/Z4ET/2eBE/9ngRP/qtdW/6rXVv+q11b/qtdW/6rXVv+q11b/qtdW/6rXVv9ngRP/Z4ET/2eBE/9ngRP/Z4ET/2eBE/9ngRP/Z4ET/6rXVv+q11b/qtdW/6rXVv+q11b/qtdW/6rXVv+q11b/Z4ET/2eBE/9ngRP/Z4ET/2eBE/9ngRP/Z4ET/2eBE/+q11b/qtdW/6rXVv+q11b/qtdW/6rXVv+q11b/qtdW/2eBE/9ngRP/Z4ET/2eBE/9ngRP/Z4ET/2eBE/9ngRP/qtdW/6rXVv+q11b/qtdW/6rXVv+q11b/qtdW/6rXVv9ngRP/Z4ET/2eBE/9ngRP/Z4ET/2eBE/9ngRP/Z4ET/6rXVv+q11b/qtdW/6rXVv+q11b/qtdW/6rXVv+q11b/Z4ET/2eBE/9ngRP/Z4ET/2eBE/9ngRP/Z4ET/2eBE/+q11b/qtdW/6rXVv+q11b/qtdW/6rXVv+q11b/qtdW/2eBE/9ngRP/Z4ET/2eBE/9ngRP/Z4ET/2eBE/9ngRP/qtdW/6rXVv+q11b/qtdW/6rXVv+q11b/qtdW/6rXVv9ngRP/Z4ET/2eBE/9ngRP/Z4ET/2eBE/9ngRP/Z4ET/6rXVv+q11b/qtdW/6rXVv+q11b/qtdW/6rXVv+q11b/Z4ET/2eBE/9ngRP/Z4ET/2eBE/9ngRP/Z4ET/2eBE/+q11b/qtdW/6rXVv+q11b/qtdW/6rXVv+q11b/qtdW/2eBE/9ngRP/Z4ET/2eBE/9ngRP/Z4ET/2eBE/9ngRP/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#000000">
+
+    {% include 'includes/fonts.html' %}
+{% compress css %}
+    <link type="text/x-scss" href="{% static 'styles/style.scss' %}" rel="stylesheet" media="screen">
+{% endcompress %}
+
+    <link rel="manifest" href="/manifest.json">
+    <title>Leaving Well - {% block title %}Home{% endblock %}</title>
+</head>
+<body>
+<div id="root">
+    <div class="temporaryAlerts"></div>
+    <div class="persistentAlerts"></div>
+    {% block content %}{% endblock %}
+</div>
+</body>
+</html>

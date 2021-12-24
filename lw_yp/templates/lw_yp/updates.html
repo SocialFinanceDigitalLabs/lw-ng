@@ -1,0 +1,136 @@
+{% extends 'page.html' %}
+{% block title %}Profile{% endblock %}
+
+{% block pagecontent %}
+ <div class="content">
+
+    {% if worker %}
+     <div class="worker-info__box">
+         <div class=" padding--top--1 padding--right--1-5 padding--bottom--1 padding--left--1-5 mobile-padding--right--1 mobile-padding--left--1">
+             <h2>Contact your worker</h2>
+             <div class="row align-items-center">
+                 <div class="col-auto">
+                     {% include "components/person_avatar.html" with user=worker size=58 only %}
+                 </div>
+                 <div class="col-auto">
+                     <p class="h3 no-padding-bottom worker-info__name">
+                        {{ worker.first_name }} {{ worker.last_name }}
+                     </p>
+                 </div>
+             </div>
+             <div class="worker-info__item">
+                 <div class="padding--top--1 padding--bottom--0-5">
+                     <div class="row">
+                         <div class="col-md-6 col-sm-12">
+                             <div class="color--grey-dark p worker-info__email">Email</div>
+                         </div>
+                         <div class="col-md-6 col-sm-12">
+                             <div class="p worker-info__link"><a href="mailto:{{ worker.email }}">{{ worker.email }}</a>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+     {% endif %}
+
+     <div class="check-in-info__box">
+         <div class=" padding--top--1 padding--right--1-5 padding--bottom--1 padding--left--1-5 mobile-padding--right--1 mobile-padding--left--1">
+             <div class="h2 no-padding-bottom">Mini check-in</div>
+             <div class="check-in-info__item">
+                 <div class=" padding--top--1 padding--bottom--1">
+                     <div class="row">
+                         <div class="col-md-6 col-sm-12">
+                             <div class="color--grey-dark p">Answer some quick questions about your situation right now,
+                                 request help with something if you need it
+                             </div>
+                         </div>
+                         {% if last_checkin %}
+                         <div class="col-md-6 col-sm-12">
+                             <div class=" mobile-padding--top--0-5">
+                                 <div class="row">
+                                     <div class="col">
+                                         <div class="p check-in-info__link"><a href="/checkin">View last completed
+                                             check-in</a></div>
+                                     </div>
+                                 </div>
+                                 <div class="row">
+                                     <div class="col">
+                                         <div class="color--grey-dark p check-in-info__date">{{ last_checkin.date | date:"j F Y"}}</div>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                         {% endif %}
+                     </div>
+                 </div>
+                 <div class="row">
+                     <div class="col"><a class="button button--tertiary" href="/checkin/edit">Check-in</a></div>
+                 </div>
+             </div>
+         </div>
+     </div>
+
+     <div class=" padding--top--1-5 padding--right--1-5 padding--bottom--0-5 padding--left--1-5">
+        <h2 class="h3">Updates</h2>
+            <div class="updates">
+                {% if updates %}
+                    {% for update in updates %}
+                        <div class="updates__date-group">
+                            <div class=" padding--top--0-5 padding--right--0-5 padding--bottom--0-5 padding--left--0-5">
+                                <div class="updates__date-group-title">{{ update.date | date:"j F"}}</div>
+                            </div>
+                            {% for group in update.updates %}
+                                <div class="update-group">
+                                    <div class=" padding--top--0-5 padding--right--0-5 padding--bottom--0-5 padding--left--0-5 mobile-padding--right--0-25 mobile-padding--left--0-25">
+                                        <div class="row no-gutters">
+                                            <div class="col-md-8 col-sm-12">
+                                                <div class="row no-gutters">
+                                                    <div class="col-auto">
+                                                        <div class=" padding--right--0-5">
+                                                            <button class="empty-button update-group__update-remove">
+                                                                <svg width="18" height="18"
+                                                                     viewBox="0 0 48 48">
+                                                                    <path d="M38 12.83L35.17 10 24 21.17 12.83 10 10 12.83 21.17 24 10 35.17 12.83 38 24 26.83 35.17 38 38 35.17 26.83 24z"></path>
+                                                                </svg>
+                                                            </button>
+                                                            <span class="update-group__avatar">
+                                                                {% include "components/person_avatar.html" with user=group.user size=24 only %}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <strong class="b-700">{{ group.user.first_name }} {{ group.user.last_name }}</strong>
+                                                        <span class="d-inline d-md-hide d-lg-hide">has {{ group.updates | length }} updates</span>
+                                                        <div class="d-sm-block">
+                                                            <div class=" padding--top--0-5">
+                                                                {% for message in group.updates %}
+                                                                <div class="update-group__item"
+                                                                     data-testid="update-item">
+                                                                    <div>{{ message }}</div>
+                                                                </div>
+                                                                {% endfor %}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 d-none d-sm-flex"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>You have no unread updates.</p>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+

@@ -1,0 +1,155 @@
+.dashboard {
+
+  &__view {
+    min-width: 1080px;
+    @include media-breakpoint-up(lg) {
+      max-width: 100%;
+    }
+  }
+
+  &__key {
+    width: $lh;
+    height: $lh;
+    background: $grey-light;
+    border-radius: 50%;
+    display: block;
+    &--no {
+      background: $pink;
+    }
+
+    &--yes {
+      background: $green;
+    }
+
+    &--notanswered {
+      background: $grey-mid;
+    }
+
+    &--notrelevant {
+      background: $green-dark;
+    }
+
+    @include media-breakpoint-down(sm) {
+      width: $lh;
+      height: $lh;
+    }
+  }
+
+  &__question {
+    min-width: 1080px;
+    &__table {
+      padding: 1rem;
+      border-style: solid;
+      border-width: 2px;
+      border-color: $grey-mid;
+    }
+  }
+
+  &__category {
+    min-width: 1080px;
+  }
+
+
+
+}
+
+.bar {
+
+  height: 40px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  border-radius: 1px;
+  overflow: hidden;
+  align-items: center;
+
+  section {
+
+    &:last-of-type {
+      flex: auto;
+    }
+
+  }
+
+  &__segment {
+    color: white;
+    //cursor: pointer;
+    height: 40px;
+    padding-top: 10px;
+
+    &--no {
+      background: $pink;
+    }
+
+    &--yes {
+      background: $green;
+    }
+
+    &--notanswered {
+      background: $grey-mid;
+    }
+
+    &--notrelevant {
+      background: $green-dark;
+    }
+
+    &__info {
+      position: absolute;
+      width: 150px;
+      padding: 2px;
+      color: black;
+      background-color: white;
+      border: 1px solid black;
+      top: 85%;
+      z-index: 20;
+      display: inline-block;
+
+      &--no {
+        border-color: $pink;
+      }
+
+      &--yes {
+        border-color: $green;
+      }
+
+      &--notanswered {
+        border-color: $grey-mid;
+      }
+
+      &--notrelevant {
+        border-color: $green-dark;
+      }
+
+    }
+
+    &__selectable {
+      opacity: 0.3;
+      cursor: pointer;
+
+      &--active {
+        opacity: 1;
+
+        &--no {
+          border: 2px solid darken($pink, 40%);
+        }
+
+        &--yes {
+          border: 2px solid darken($green, 40%);
+        }
+
+        &--notanswered {
+          border: 2px solid darken($grey-mid, 40%);
+        }
+
+        &--notrelevant {
+          border: 2px solid darken($green-dark, 40%);
+        }
+
+      }
+
+    }
+
+  }
+
+}
+

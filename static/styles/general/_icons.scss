@@ -1,0 +1,13 @@
+@each $name, $value in $colours {
+  .icon--#{$name} {
+      path {
+        fill: $value !important;
+        transition: fill 0.4s ease;
+      }
+  }
+  .icon--#{$name}--hover:hover {
+    path {
+      fill: $value !important;
+    }
+  }
+}

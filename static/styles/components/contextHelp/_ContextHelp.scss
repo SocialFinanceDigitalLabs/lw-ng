@@ -1,0 +1,70 @@
+.context-wrapper {
+  position: relative;
+}
+
+.context-help {
+  position: absolute;
+  width: 640px;
+  padding: 21px 66px 0px 130px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  @include border-radius(5px);
+  background: white;
+  @include drop-shadow-box();
+
+  .context-help__illus {
+    width: 100px;
+    left: 30px;
+    position: absolute;
+    top: 40px;
+  }
+
+
+  .context-help__title {
+    border-bottom: 2px solid $green;
+    padding-bottom: 2px;
+    margin-bottom: 16px;
+    width: auto;
+    display: inline-block;
+  }
+
+
+  &:before, &:after {
+    bottom: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+  }
+
+  &--left-arrow {
+    &:before, &:after {
+      bottom: 100%;
+      left: 60px;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+    }
+  }
+
+  &:after {
+	border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: white;
+	border-width: 24px;
+	margin-left: -24px;
+    margin-bottom: -1px
+  }
+  &:before {
+	border-color: rgba(194, 225, 245, 0);
+	border-bottom-color: #ccc;
+	border-width: 24px;
+	margin-left: -24px;
+    margin-bottom: 0px
+  }
+}

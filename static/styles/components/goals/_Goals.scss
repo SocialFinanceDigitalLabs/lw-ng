@@ -1,0 +1,82 @@
+.goal-view-item {
+    @extend .box-w-drop-shadow;
+    padding-bottom: 0 !important;
+    @include media-breakpoint-down(md) {
+      padding-top: $lh/2 !important;
+    }
+
+  }
+
+.goals-view {
+  @include media-breakpoint-up(lg) {
+    max-width: 75%;
+  }
+}
+
+.goal-action {
+  border-bottom: 1px solid $grey-light;
+  margin-left: -$lh/2;
+  margin-right: -$lh/2;
+  @include media-breakpoint-up(md) {
+    margin-left: -1.5*$lh;
+    margin-right: -1.5*$lh;
+  }
+}
+
+.goal-action-edit {
+  background-color: $grey-xlight;
+  border-bottom: 1px solid $grey-light;
+  margin-left: -$lh/2;
+  margin-right: -$lh/2;
+  @include media-breakpoint-up(md) {
+    margin-left: -1.5*$lh;
+    margin-right: -1.5*$lh;
+  }
+}
+
+.add-action-button {
+  background-color: #eeeeee;
+  border-bottom: 2px solid $green;
+
+  &--disabled {
+    opacity: 0.3;
+  }
+}
+
+.img-add-action-button {
+  background-color: #eeeeee;
+}
+
+.goal-completed-item {
+
+  &__title {
+    @include vertical-align();
+  }
+}
+
+.done-icon {
+  background: $green;
+  border-radius: 50%;
+  padding: 0.25rem;
+}
+
+// remove weird padding and margins
+.popup {
+  position: absolute;
+  padding: 3rem;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  // margin-right: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-style: solid;
+  border-width: 1px;
+}
+
+.show-hide-actions-button {
+  background: $grey-midlight;
+  text-decoration: underline;
+  padding: $lh/2 $lh;
+}

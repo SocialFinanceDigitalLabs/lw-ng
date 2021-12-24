@@ -1,0 +1,11 @@
+.link {
+  color: $green-dark;
+  text-decoration: underline;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    color: $green-xdark;
+    text-decoration: none;
+  }
+}

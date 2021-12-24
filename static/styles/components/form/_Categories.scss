@@ -1,0 +1,11 @@
+.categories {
+  &__add-category {
+    position: relative;
+    &__link {
+      color: $green-dark;
+    }
+    @include media-breakpoint-down(md) {
+      padding-bottom: $lh/2;
+    }
+  }
+}

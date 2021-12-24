@@ -1,0 +1,20 @@
+.terms-conditions {
+  max-width: 75%;
+    ol {
+        counter-reset: item;
+        list-style-position: inside;
+        padding-left: 0;
+      }
+      li {
+        
+        display: inline-block;
+        padding-top: $lh*1.5;
+      }
+      li:before {
+        font-weight: bold;
+
+        content: counters(item, ".") ". ";
+        counter-increment: item
+      }
+  font-weight: 400 !important;     
+}

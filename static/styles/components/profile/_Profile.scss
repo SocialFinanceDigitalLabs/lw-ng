@@ -1,0 +1,60 @@
+.profile-view {
+
+  &__row {
+    border-bottom: 1px solid $grey-mid;
+    padding: $lh 0 $lh/2 0;
+    p {
+      padding-bottom: $lh/2;
+      @include media-breakpoint-up(sm) {
+        padding-bottom: $lh;
+      }
+    }
+  }
+
+  &__action {
+    text-align: right;
+  }
+}
+
+.profile-edit {
+
+  max-width: 640px;
+  @include media-breakpoint-up(sm) {
+    width: 90%;
+  }
+}
+
+.profile-sub {
+  padding-bottom: $lh/4;
+  @include media-breakpoint-up(sm) {
+    padding-bottom: 0;
+  }
+
+}
+
+.profile-colour {
+  display: block;
+  width: 80px;
+  height: 80px;
+  border-radius: 80px;
+  position: relative;
+  overflow: hidden;
+
+  svg {
+    width: 100%;
+    height: 100%;
+    bottom: 0%;
+    position: absolute;
+
+    path {
+      fill: white !important;
+    }
+  }
+
+  &--mobile {
+    @include media-breakpoint-down(sm) {
+      width: 32px !important;
+      height: 32px !important;
+    }
+  }
+}

@@ -1,0 +1,18 @@
+.form-element--checkbox {
+  position: relative;
+  input {
+    display: none;
+  }
+  span {
+    path {
+      fill: $black;
+    }
+  }
+  input:disabled + span path {
+    fill: $grey-mid;
+  }
+  input:checked + span path {
+    fill: $green;
+  }
+
+}

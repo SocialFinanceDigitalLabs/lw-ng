@@ -1,0 +1,16 @@
+.wrap {
+  height: 100%;
+  width: 100%;
+  background: $grey-xxlight;
+}
+
+.content {
+  max-width: 1200px;
+  background: white;
+  position: relative;
+  z-index: 10;
+
+   @include media-breakpoint-down(sm) {
+     padding-top: 2*$lh;
+   }
+}

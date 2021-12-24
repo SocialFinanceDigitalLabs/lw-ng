@@ -1,0 +1,33 @@
+.form-element--textarea {
+  &__textarea {
+    margin: $lh/4 0;
+    min-height: 4*$lh;
+    //border: 2px solid $black;
+    border: none;
+    appearance: none;
+    outline: 2px solid $black;
+    padding: $lh/2;
+    padding: $lh/4;
+    box-sizing: border-box;
+    width: 100%;
+    &:focus {
+      outline-offset: 0;
+      outline: 2px solid $green;
+    }
+    &--small {
+      min-height: 2*$lh;
+    }
+    @include media-breakpoint-up(md) {
+      padding: $lh/2;
+      margin: $lh/2 0;
+    }
+  }
+  &__textarea--squash-mobile {
+    @include media-breakpoint-down(md) {
+      height: 3*$lh !important;
+      overflow-y: scroll;
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+}
+

@@ -1,0 +1,63 @@
+.check-in-info{
+
+    &__box {
+        border-bottom: 1.2rem solid $grey-light;
+    }
+
+    &__date {
+      line-height: 2;
+  }
+
+    &__link {
+        list-style: none;
+        a {
+          font-weight: 400;
+          color: $green-dark;
+          text-decoration: underline;
+          display: block;
+          line-height: $lh;
+          transition: color .25s ease;
+          &:hover {
+            color: $green;
+          }
+        }
+      }
+}
+
+.check-in-view-question {
+
+  &__notes{
+    font-style: italic;
+  }
+
+  &__bold{
+    font-weight: 600;
+  }
+
+}
+
+.check-in-edit-question {
+
+  &__checkbox-label{
+    font-weight: 600;
+  }
+
+}
+
+.check-in-view {
+
+  &__date-group-title{
+    text-align: left;
+    color: $grey-red;
+  }
+
+}
+
+.check-in-completed ul {
+
+    // list-style: none;
+    padding-top: 2rem;
+    padding-left: 2rem;
+    text-transform: capitalize;
+  
+}

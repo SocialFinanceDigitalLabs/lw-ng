@@ -1,0 +1,21 @@
+.yp-list-item {
+  transition: background-color .25s ease;
+  display: block;
+  border-top: 1px solid $grey-light;
+  margin-top: -1px;
+  &:last-child {
+    border-bottom: 1px solid $grey-light;
+  }
+  &__title {
+    line-height: $lh;
+    color: $grey-dark;
+    font-weight: 400;
+  }
+  &:hover {
+    background: lighten($grey-light,5%);
+    text-decoration: none;
+    .yp-list-item__title {
+      text-decoration: none;
+    }
+  }
+}

@@ -1,0 +1,16 @@
+.no-results {
+  text-align: center;
+
+  &__title {
+    font-size: 1.6rem;
+    line-height: 2rem;
+  }
+
+  &__body {
+    font-size: 1.4rem;
+  }
+
+  &__greyed {
+    color: $grey-mid;
+  }
+}

@@ -1,0 +1,34 @@
+$grid-colour: rgba(red, .5);
+
+.layout-grid {
+  z-index: 999;
+  display: none;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4000px;
+  background: repeating-linear-gradient(
+        transparent,
+        transparent $lh,
+        $grid-colour $lh,
+        $grid-colour $lh*2
+  );
+
+}
+
+.grid-toggle {
+  font-size: 12px;
+  line-height: $lh;
+  position: fixed;
+  z-index: 10000000;
+  padding: 0 $lh/2;
+  opacity: 1;;
+  background: grey;
+  color: #fff;
+  bottom: $lh/2;
+  left: $lh/2;
+  cursor: pointer;
+}
+

@@ -1,0 +1,56 @@
+.invite-modal {
+  width: 90%;
+  max-width: 785px;
+  padding: $lh*.75 $lh*.75 $lh $lh*.75 !important;
+  border-color: transparent !important;
+  @include media-breakpoint-up(md) {
+    padding: $lh * 1.5 !important;
+  }
+  &__close-button {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: $lh*1.25;
+    color: $grey-mid;
+    display: block;
+    line-height: 2*$lh;
+    width: 2*$lh;
+    text-align: center;
+    //transform: rotateZ(0);
+    transition: transform .25s ease;
+    &:hover{
+      //transform: rotateZ(90deg);
+    }
+  }
+}
+
+.invite-outer {
+  width: 90%;
+  max-width: 650px;
+}
+
+.invite-email {
+  font-weight: 700;
+  background-color: $green-light;
+  padding: 0.4rem;
+}
+
+.invite {
+  &__complete-title {
+    color: $green-dark;
+    text-align: left;
+    svg {
+      margin-top: -8px;
+
+      path {
+        fill: $green-dark;
+      }
+    }
+    @include media-breakpoint-down(md) {
+      font-size: 1.8rem;
+      padding-bottom: 0;
+      text-align: left;
+    }
+  }
+}
