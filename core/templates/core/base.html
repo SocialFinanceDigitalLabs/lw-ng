@@ -1,0 +1,20 @@
+{% load webpack_loader static %}
+
+<html lang="en">
+  <head>
+    <title>{% block title %}Leaving Well{% endblock %}</title>
+    {% include "core/head.html" %}
+  </head>
+  <body class="bg-white font-sans leading-normal text-grey-800" style="overflow: hidden;">
+    {% include "core/header.html" %}
+    <main>
+        {% include "core/messages.html" %} 
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+    {% include "core/footer.html" %}
+
+    {% javascript_pack 'app' attrs='charset="UTF-8"' %}
+  </body>
+</html>

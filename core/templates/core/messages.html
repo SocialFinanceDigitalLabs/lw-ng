@@ -1,0 +1,17 @@
+{% if messages %}
+<div class="container">
+    {% for message in messages %}
+        {% if message.tags == 'error' %}
+            <div class="card-panel red lighten-2 flow-text white-text" style="margin-bottom: 1em;">
+        {% elif  message.tags == 'success' %}
+            <div class="card-panel hfu-blue lighten-2 flow-text white-text" style="margin-bottom: 1em;">
+        {% elif  message.tags == 'warning' %}
+            <div class="card-panel yellow lighten-2 flow-text white-text" style="margin-bottom: 1em;">
+        {% else %}
+            <div class="card-panel hfu-blue lighten-2 flow-text white-text" style="margin-bottom: 1em;">
+        {% endif %}
+        {{ message }} 
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
