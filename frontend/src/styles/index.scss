@@ -1,0 +1,38 @@
+
+$base-font: "Nunito Sans", sans-serif;
+$secondary-color: #78a5a3;
+
+@import "~materialize-css/sass/materialize.scss";
+
+
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  font-family: $base-font !important;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+header, main, footer {
+  padding-left: 300px;
+}
+
+@media only screen and (max-width: 992px){
+  header, main, footer {
+      padding-left: 0;
+  }
+}
+
+nav {
+  background-color: white;
+  color: black;
+  li {
+    a {
+      color: black;
+    }
+  }
+}
