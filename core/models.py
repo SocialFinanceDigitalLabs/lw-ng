@@ -15,7 +15,7 @@ class NoteType(models.IntegerChoices):
 
 
 class PersonalAdvisor(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="personal_advisor")
     manager = models.ForeignKey(
         User, related_name="personal_advisors", null=True, on_delete=models.SET_NULL
     )
@@ -23,7 +23,7 @@ class PersonalAdvisor(models.Model):
 
 
 class YoungPerson(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="young_person")
     personal_advisors = models.ManyToManyField(
         PersonalAdvisor, related_name="young_persons"
     )
