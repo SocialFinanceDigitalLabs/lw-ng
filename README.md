@@ -65,3 +65,9 @@ so we can use webpack for styling and packing javascript. Make sure you install 
    *  `npm run build` - creates a build directory with a production build of the files;
    *  To work more on the frontend, see instructions in the [frontend](./frontend/README.md) directory.
 5. Go back to the main directory (`cd ..`) and run `python manage.py runserver 8000` to access the portal site.
+
+
+## Docker Setup
+If you have docker setup on your computer, you can run the following steps to get a local copy running:
+   * `docker-compose build` - Build the images using the Dockerfile provided in this repo.
+   * `docker-compose up` - Will spin up a copy of LW-NG along with a postgres database (at http://127.0.0.1:8000) as long as that address isn't taken by another service.
