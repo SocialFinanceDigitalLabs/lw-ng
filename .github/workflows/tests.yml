@@ -38,4 +38,5 @@ jobs:
 
     - name: Run Python Unit Tests
       run: |
+        cp .env.example .env
         python manage.py test
