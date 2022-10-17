@@ -11,6 +11,7 @@ ENV PATH="/opt/venv/bin:$PATH"
 # Poetry and Requirements
 RUN pip install poetry
 COPY pyproject.toml poetry.lock .
+# Because Poetry sometimes has issues with Docker, we revert back to PIP
 RUN poetry export -f requirements.txt --output requirements.txt
 #COPY requirements.txt .
 RUN pip install -r requirements.txt
