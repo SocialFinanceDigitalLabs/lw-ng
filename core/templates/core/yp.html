@@ -1,0 +1,8 @@
+{% extends "core/base.html" %}
+{% block content %}
+  <p><button><a href="{% url 'invite' %}">Invite a young person</a></button></p>
+  <p>Hello {{pa.user.first_name}}! This is where all the young people will land.</p>
+  {% for yp in pa.young_persons.all %}
+  <li>{{yp.user.first_name}} {{yp.user.last_name}}</li>
+  {% endfor %}
+{% endblock content %}

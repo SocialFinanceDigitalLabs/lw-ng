@@ -1,0 +1,15 @@
+{% extends "core/base.html" %}
+{% block content %}
+  <p>Hello {{pa.user.first_name}}! This is where you can invite YP to the platform.</p>
+    
+
+<!--Register--> 
+<div class="container py-5">
+	<h1>Register</h1>
+	<form method="POST">
+		{% csrf_token %}
+		{{ register_form }}                    
+		<button class="btn btn-primary" type="submit">Register</button>
+	</form>
+</div>
+{% endblock content %}

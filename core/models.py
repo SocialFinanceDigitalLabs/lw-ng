@@ -31,6 +31,7 @@ class PersonalAdvisor(models.Model):
         "PersonalAdvisor",
         related_name="personal_advisors",
         null=True,
+        blank=True,
         on_delete=models.SET_NULL,
     )
     is_manager = models.BooleanField()
