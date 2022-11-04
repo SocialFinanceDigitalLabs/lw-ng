@@ -1,4 +1,6 @@
 # Leaving Well: Improving Support For Young People Leaving Care
+![testing](https://github.com/SocialFinanceDigitalLabs/lw-ng/actions/workflows/tests.yml/badge.svg)
+![linting](https://github.com/SocialFinanceDigitalLabs/lw-ng/actions/workflows/linting.yml/badge.svg)
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
