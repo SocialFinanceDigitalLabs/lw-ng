@@ -1,0 +1,37 @@
+{
+  "name": "Leaving Well Open Source",
+  "keywords": [
+    "Social Finance",
+    "Leaving Well",
+    "Care Leavers"
+  ],
+  "repository": "https://github.com/SocialFinanceDigitalLabs/lw-ng",
+  "logo": "https://www.socialfinance.org.uk/sites/default/files/sflogo_black_transparent.png",
+  "success_url": "/",
+  "env": {
+    "DJANGO_SECRET_KEY": {
+      "description": "The Django SECRET_KEY - do not share this value",
+      "generator": "secret"
+    },
+    "DISABLE_POETRY_CREATE_RUNTIME_FILE": {
+      "description": "We provide a specfic python version in runtime.txt.",
+      "value": "1"
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql"
+    }
+  ],
+  "buildpacks": [
+    {
+      "url": "https://github.com/moneymeets/python-poetry-buildpack.git"
+    },
+    {
+      "url": "heroku/nodejs"
+    },
+    {
+      "url": "heroku/python"
+    }
+  ]
+}

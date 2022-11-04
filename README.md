@@ -1,5 +1,7 @@
 # Leaving Well: Improving Support For Young People Leaving Care
 
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
 Leaving Well is a framework to improve support for young people leaving the care system.
 
 Care leavers face a lot of challenges when they move from care to independence. 

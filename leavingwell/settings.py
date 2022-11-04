@@ -11,8 +11,10 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 import os
+from logging.config import dictConfig
 from pathlib import Path
 
+import django_heroku
 import dj_database_url
 from decouple import config
 
@@ -29,7 +31,7 @@ SECRET_KEY = config("DJANGO_SECRET_KEY")
 DEBUG = config("DEBUG", default=False, cast=bool)
 
 ALLOWED_HOSTS = config(
-    "ALLOWED_HOSTS", cast=lambda v: [s.strip() for s in v.split(",")], default=[]
+    "ALLOWED_HOSTS", cast=lambda v: [s.strip() for s in v.split(",")], default=""
 )
 
 
@@ -139,3 +141,32 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 WEBPACK_LOADER = {
     "MANIFEST_FILE": BASE_DIR / "frontend/build/manifest.json",
 }
+
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": True,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "brief",
+        },
+    },
+    "formatters": {
+        "brief": {
+            "format": "%(levelname)s %(name)s %(message)s",
+        }
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "INFO",
+    },
+    "loggers": {
+        "core": {"level": "INFO"},
+        "leavingwell": {"level": "INFO"},
+    },
+}
+
+dictConfig(LOGGING)
+
+django_heroku.settings(locals())
