@@ -1,5 +1,5 @@
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
@@ -50,7 +50,7 @@ class PersonalAdvisor(models.Model):
         User, on_delete=models.CASCADE, related_name="personal_advisor"
     )
     manager = models.ForeignKey(
-        "PersonalAdvisor",
+        "Manager",
         related_name="personal_advisors",
         null=True,
         blank=True,
