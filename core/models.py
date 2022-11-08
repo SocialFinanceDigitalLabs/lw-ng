@@ -12,15 +12,15 @@ class MetadataMixin(models.Model):
         abstract = True
 
 
-class ChecklistQuestionAnswer(models.IntegerChoices):
-    NO = 0, _("No")
-    YES = 1, _("Yes")
-    NOT_RELEVANT = 2, _("This isn't relevant to me")
+class ChecklistQuestionAnswer(models.TextChoices):
+    NO = "NO", _("No")
+    YES = "YES", _("Yes")
+    NOT_RELEVANT = "NOT", _("This isn't relevant to me")
 
 
-class NoteType(models.IntegerChoices):
-    PA = 0, _("Pathway Plan PA")
-    MANAGER = 1, _("Pathway Plan Manager")
+class NoteType(models.TextChoices):
+    PA = "PA", _("Pathway Plan PA")
+    MANAGER = "MANAGER", _("Pathway Plan Manager")
 
 
 class PersonalAdvisor(models.Model):
@@ -113,7 +113,11 @@ class ChecklistQuestionResponse(models.Model):
     question = models.ForeignKey(
         Question, on_delete=models.CASCADE, related_name="question_responses"
     )
-    answer = models.PositiveSmallIntegerField(choices=ChecklistQuestionAnswer.choices)
+    answer = models.CharField(
+        choices=ChecklistQuestionAnswer.choices,
+        max_length=3,
+        default=ChecklistQuestionAnswer.NOT_RELEVANT,
+    )
     note = models.TextField(max_length=500, null=True, blank=True)
 
 
@@ -125,6 +129,6 @@ class Note(models.Model):
     submitted_by = models.ForeignKey(
         User, null=True, on_delete=models.SET_NULL, related_name="submitted_notes"
     )
-    note_type = models.PositiveSmallIntegerField(
-        choices=NoteType.choices, null=True, blank=True
+    note_type = models.CharField(
+        choices=NoteType.choices, max_length=8, default=NoteType.PA
     )
