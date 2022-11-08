@@ -14,8 +14,8 @@ import os
 from logging.config import dictConfig
 from pathlib import Path
 
-import django_heroku
 import dj_database_url
+import django_heroku
 from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -78,19 +78,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "leavingwell.wsgi.application"
-
-
-# Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-MAX_CONN_AGE = 600
-
-DATABASES = {
-    "default": dj_database_url.parse(
-        config("DATABASE_URL", default=f"sqlite:///{BASE_DIR}/db.sqlite3"),
-        conn_max_age=MAX_CONN_AGE,
-        ssl_require=False,
-    ),
-}
 
 
 # Password validation
@@ -169,4 +156,14 @@ LOGGING = {
 
 dictConfig(LOGGING)
 
-django_heroku.settings(locals())
+if config("SKIP_HEROKU", default=False, cast=bool):
+    MAX_CONN_AGE = 600
+    DATABASES = {
+        "default": dj_database_url.parse(
+            config("DATABASE_URL", default=f"sqlite:///{BASE_DIR}/db.sqlite3"),
+            conn_max_age=MAX_CONN_AGE,
+            ssl_require=False,
+        ),
+    }
+else:
+    django_heroku.settings(locals())
