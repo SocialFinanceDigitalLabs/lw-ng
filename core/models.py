@@ -5,8 +5,26 @@ from django.utils.translation import gettext_lazy as _
 
 class MetadataMixin(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
+    created_by = models.ForeignKey(
+        User,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
     updated_at = models.DateTimeField(auto_now=True, editable=False)
-    completed_at = models.DateTimeField(null=True)
+    updated_by = models.ForeignKey(
+        User,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
+    completed_at = models.DateTimeField(null=True, editable=False)
+    completed_by = models.ForeignKey(
+        User,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
 
     class Meta:
         abstract = True
@@ -23,6 +41,10 @@ class NoteType(models.TextChoices):
     MANAGER = "MANAGER", _("Pathway Plan Manager")
 
 
+class Manager(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="manager")
+
+
 class PersonalAdvisor(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name="personal_advisor"
@@ -34,7 +56,6 @@ class PersonalAdvisor(models.Model):
         blank=True,
         on_delete=models.SET_NULL,
     )
-    is_manager = models.BooleanField()
 
 
 class YoungPerson(models.Model):
@@ -50,26 +71,14 @@ class Goal(MetadataMixin, models.Model):
     young_person = models.ForeignKey(
         YoungPerson, on_delete=models.CASCADE, related_name="goals"
     )
-    updated_by = models.ForeignKey(
-        User, null=True, on_delete=models.SET_NULL, related_name="updated_goals"
-    )
     archived = models.DateTimeField(null=True, blank=True)
-    created_by = models.ForeignKey(
-        User, null=True, on_delete=models.SET_NULL, related_name="created_goals"
-    )
     title = models.TextField(max_length=50)
     description = models.TextField(max_length=500, null=True, blank=True)
 
 
 class Action(MetadataMixin, models.Model):
     goal = models.ForeignKey(Goal, on_delete=models.CASCADE, related_name="actions")
-    created_by = models.ForeignKey(
-        User, null=True, on_delete=models.SET_NULL, related_name="created_actions"
-    )
     deadline = models.DateTimeField(null=True, blank=True)
-    updated_by = models.ForeignKey(
-        User, null=True, on_delete=models.SET_NULL, related_name="updated_actions"
-    )
     description = models.TextField(max_length=500)
     owner = models.ForeignKey(
         User, null=True, on_delete=models.SET_NULL, related_name="owned_actions"
