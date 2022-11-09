@@ -1,0 +1,20 @@
+{% load webpack_loader material_form static %}
+
+<html lang="en">
+  <head>
+    {% include "core/head.html" %}
+  </head>
+  <body class="bg-white font-sans leading-normal text-grey-800">
+    {% include "core/messages.html" %} 
+    <div class="container">
+        <h3>Create Test Users</h3>
+        <blockquote class="flow-text">If you choose <b>2</b> for manager, <b>3</b> for PA and <b>4</b> for YP it will create <b>2</b> managers with <b>3</b> PAs each and each PA will have <b>4</b> YP associated.</blockquote>
+        <form method="post">
+            {% csrf_token %}
+            {% form form=form %}{% endform %}
+            <button class="btn" type="submit">create</button>
+        </form>
+    </div>
+    {% javascript_pack 'app' attrs='charset="UTF-8"' %}
+  </body>
+</html>
