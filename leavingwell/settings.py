@@ -167,3 +167,6 @@ if config("SKIP_HEROKU", default=False, cast=bool):
     }
 else:
     django_heroku.settings(locals())
+
+
+LOGIN_REDIRECT_URL = "index"

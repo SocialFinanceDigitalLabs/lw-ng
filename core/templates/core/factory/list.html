@@ -1,0 +1,61 @@
+{% load webpack_loader material_form static %}
+
+<html lang="en">
+  <head>
+    {% include "core/head.html" %}
+  </head>
+  <body class="bg-white font-sans leading-normal text-grey-800">
+    {% include "core/messages.html" %} 
+    <form method="post">
+        {% csrf_token %}
+    <div class="container">
+        <h3>Users created</h3>
+        <div class="row">
+            <blockquote class="flow-text">The password for all the users is <b>test</b></blockquote>
+            <a href="{% url 'login' %}" target="_blank" class="btn btn-block">login</a>
+        </div>
+        <div class="row">
+            <div class="col s4">
+                <h4>Manager</h4>
+            </div>
+            <div class="col s4">
+                <h4>PA</h4>
+            </div>
+            <div class="col s4">
+                <h4>YP</h4>
+            </div>
+        </div>
+        {% for manager_data in data %}
+        <div class="row">
+            <div class="col s4">
+                <div>
+                    {{manager_data.manager}}
+                </div>
+            </div>
+            <div class="col s8">
+                {% for pa_data in manager_data.pas %}
+                    <div class="row">
+                        <div class="col s6">
+                            {{pa_data.pa}}
+                        </div>
+                        <div class="col s6">
+                            {% for yp in pa_data.yps %}
+                            <div>
+                                {{yp}}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <hr />
+                {% endfor %}
+            </div>
+        </div>
+        <hr />
+        {% endfor %}
+
+        
+    </div>
+    </form>
+    {% javascript_pack 'app' attrs='charset="UTF-8"' %}
+  </body>
+</html>

@@ -1,4 +1,5 @@
 import itertools
+import random
 from collections import defaultdict
 from typing import Union
 
@@ -45,14 +46,18 @@ class Builder:
         """
         user_count = next(self._user_count)
 
-        default_props = dict(username=f"user-{user_count}")
+        default_props = dict()
         if faker:
-            default_props["first_name"] = self.fake.first_name()
-            default_props["last_name"] = self.fake.last_name()
+            first_name = self.fake.first_name()
+            last_name = self.fake.last_name()
+            default_props["first_name"] = first_name
+            default_props["last_name"] = last_name
             default_props["email"] = self.fake.email()
+            default_props["username"] = f"{first_name}-{last_name}"
         else:
             default_props["first_name"] = f"FirstName{user_count}"
             default_props["last_name"] = f"LastName{user_count}"
+            default_props["username"] = f"user-{user_count}"
             default_props["email"] = f"user{user_count}@leavingwell.test"
 
         default_props.update(kwargs)
@@ -118,3 +123,27 @@ class Builder:
         default_props.update(kwargs)
 
         return Manager.objects.create(user=user, **default_props)
+
+
+def create_random_users(manager_count: int, pa_count: int, yp_count: int) -> list[dict]:
+    """creates a few manager users, each with a number of PAs and YPs associated with"""
+    builder = Builder(seed=random.randint(0, 1000))
+    data = []
+    for _ in range(manager_count):
+        manager = builder.manager(user__password="test")
+        manager_data = {
+            "manager": manager.user.username,
+            "pas": [],
+        }
+        for _ in range(pa_count):
+            pa = builder.personal_advisor(
+                user__password="test",
+                manager=manager,
+            )
+            pa_data = {"pa": pa.user.username, "yps": []}
+            for _ in range(yp_count):
+                yp = builder.young_person(user__password="test", pa=pa)
+                pa_data["yps"].append(yp.user.username)
+            manager_data["pas"].append(pa_data)
+        data.append(manager_data)
+    return data
