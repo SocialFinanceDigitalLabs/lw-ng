@@ -1,0 +1,59 @@
+{% extends "core/base.html" %}
+{% block content %}
+  <p>Hello {{yp.user.first_name}}! This is where you view and add goals.</p>
+
+<!--Add goals.--> 
+<h2>Add a new goal</h2>
+<div class="container py-5">
+	<form method="POST">
+        {% csrf_token %}
+		{{ goal_form }}                    
+		<button class="btn btn-primary" type="submit">Add goal</button>
+	</form>
+</div>
+<br>
+
+<!--View current goals and add actions.--> 
+<h2>Current goals</h2>
+{% for goal in current_goals reversed %}
+<div class="container py-3">
+    <h3>Goal: {{goal.title}}</h3>
+    <i>{{goal.description}}</i>
+    <form method="POST">
+        {% csrf_token %}
+		{{ g_complete }}
+        <input type="hidden" name='goal_i' value="{{goal.id}}">
+        <button class="btn btn-primary" type="submit">Mark goal as complete</button>
+	</form>
+    <form method="POST">
+        {% csrf_token %}
+		{{ g_archive }}
+        <input type="hidden" name='goal_i' value="{{goal.id}}">
+        <button class="btn btn-primary" type="submit">Archive goal</button>
+	</form>    
+    <h4>Related actions</h4>
+    {% for action in goal.actions.all %}
+        <b>{{action.description}}</b>
+        <p><i>Deadline: {{action.deadline}}</i></p>
+    {% endfor %}
+    <h4>Add new action</h4>
+    <form method="POST">
+        {% csrf_token %}
+		{{ action_form }}
+        <input type="hidden" name='iden' value="{{goal.id}}">
+        <button class="btn btn-primary" type="submit">Add action</button>
+	</form>
+</div>
+{% endfor %}
+
+<br>
+<h2>Achievements</h2>
+{% for goal in complete_goals %}
+<div class="container py-3">
+    <h3>Goal: {{goal.title}}</h3>
+    <i>{{goal.description}}</i>
+</div>
+{% endfor %}
+
+{% endblock content %}
+
