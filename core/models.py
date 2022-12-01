@@ -1,25 +1,12 @@
-from django.db import models
+from auditlog.registry import auditlog
 from django.contrib.auth.models import User
+from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
-class MetadataMixin(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True, editable=False)
-    created_by = models.ForeignKey(
-        User,
-        null=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-    )
-    updated_at = models.DateTimeField(auto_now=True, editable=False)
-    updated_by = models.ForeignKey(
-        User,
-        null=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-    )
-    completed_at = models.DateTimeField(null=True, editable=False)
-    completed_by = models.ForeignKey(
+class AuditEntry(models.Model):
+    at = models.DateTimeField(auto_now_add=True, editable=False)
+    by = models.ForeignKey(
         User,
         null=True,
         on_delete=models.SET_NULL,
@@ -67,22 +54,31 @@ class YoungPerson(models.Model):
     )
 
 
-class Goal(MetadataMixin, models.Model):
+class Goal(models.Model):
     young_person = models.ForeignKey(
         YoungPerson, on_delete=models.CASCADE, related_name="goals"
     )
-    archived = models.DateTimeField(null=True, blank=True)
+    archived = models.BooleanField(default=False)
+    complete = models.BooleanField(default=False)
     title = models.TextField(max_length=50)
     description = models.TextField(max_length=500, null=True, blank=True)
 
 
-class Action(MetadataMixin, models.Model):
+auditlog.register(Goal)
+
+
+class Action(models.Model):
     goal = models.ForeignKey(Goal, on_delete=models.CASCADE, related_name="actions")
     deadline = models.DateTimeField(null=True, blank=True)
     description = models.TextField(max_length=500)
     owner = models.ForeignKey(
         User, null=True, on_delete=models.SET_NULL, related_name="owned_actions"
     )
+    archived = models.BooleanField(default=False)
+    complete = models.BooleanField(default=False)
+
+
+auditlog.register(Action)
 
 
 class Checklist(models.Model):

@@ -44,8 +44,12 @@ def invite(request):
 @login_required
 def goals(request):
     yp = request.user.young_person
-    current_goals = request.user.young_person.goals.filter(completed_by__isnull=True)
-    complete_goals = request.user.young_person.goals.filter(completed_by__isnull=False)
+    current_goals = request.user.young_person.goals.filter(
+        complete=False, archived=False
+    )
+    complete_goals = request.user.young_person.goals.filter(
+        complete=True, archived=False
+    )
     goal_form = NewGoalForm()
     action_form = NewActionForm()
     g_complete = CompleteGoalForm()
@@ -63,7 +67,7 @@ def goals(request):
         if "g_complete" in request.POST:
             g_complete = CompleteGoalForm(request.POST)
             if g_complete.is_valid():
-                g_complete.save(request)
+                g_complete.save()
                 messages.success(request, "Achievement reached.")
                 return redirect("goals")
             else:
@@ -72,7 +76,7 @@ def goals(request):
         if "g_archive" in request.POST:
             g_archive = ArchiveGoalForm(request.POST)
             if g_archive.is_valid():
-                g_archive.save(request)
+                g_archive.save()
                 messages.success(request, "Goal archived.")
                 return redirect("goals")
             else:

@@ -35,6 +35,8 @@
     {% for action in goal.actions.all %}
         <b>{{action.description}}</b>
         <p><i>Deadline: {{action.deadline}}</i></p>
+    {% empty %}
+    <p>No actions have been logged yet.</p>
     {% endfor %}
     <h4>Add new action</h4>
     <form method="POST">

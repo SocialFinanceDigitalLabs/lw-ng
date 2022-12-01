@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from django import forms
 from django.contrib.auth.models import User
 
@@ -35,7 +33,6 @@ class NewGoalForm(forms.Form):
             title=t,
             description=d,
             young_person=request.user.young_person,
-            created_by=request.user,
         )
         return goal
 
@@ -49,7 +46,7 @@ class NewActionForm(forms.Form):
         label="Deadline",
         required=True,
     )
-    iden = forms.IntegerField(widget=forms.HiddenInput, initial=True)
+    iden = forms.IntegerField(widget=forms.HiddenInput)
     action_form = forms.BooleanField(widget=forms.HiddenInput, initial=True)
 
     def save(self, request, commit=True):
@@ -58,27 +55,25 @@ class NewActionForm(forms.Form):
         dead = self.cleaned_data["deadline"]
         for goal in request.user.young_person.goals.all():
             if goal.id == id:
-                action = Action.objects.create(
-                    description=d, deadline=dead, goal=goal, created_by=request.user
-                )
+                action = Action.objects.create(description=d, deadline=dead, goal=goal)
                 return action
 
 
 class CompleteGoalForm(forms.Form):
-    goal_i = forms.IntegerField(widget=forms.HiddenInput, initial=True)
+    goal_i = forms.IntegerField(widget=forms.HiddenInput)
     g_complete = forms.BooleanField(widget=forms.HiddenInput, initial=True)
 
-    def save(self, request, commit=True):
+    def save(self, commit=True):
         id = self.cleaned_data["goal_i"]
-        g = Goal.objects.filter(id=id).update(completed_by=request.user)
+        g = Goal.objects.filter(id=id).update(complete=True)
         return g
 
 
 class ArchiveGoalForm(forms.Form):
-    goal_i = forms.IntegerField(widget=forms.HiddenInput, initial=True)
+    goal_i = forms.IntegerField(widget=forms.HiddenInput)
     g_archive = forms.BooleanField(widget=forms.HiddenInput, initial=True)
 
-    def save(self, request, commit=True):
+    def save(self, commit=True):
         id = self.cleaned_data["goal_i"]
-        g = Goal.objects.filter(id=id).update(archived=datetime.now())
+        g = Goal.objects.filter(id=id).update(archived=True)
         return g
