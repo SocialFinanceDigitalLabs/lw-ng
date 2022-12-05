@@ -14,8 +14,8 @@ import os
 from logging.config import dictConfig
 from pathlib import Path
 
-import dj_database_url
 import django_heroku
+import dj_database_url
 from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -38,7 +38,6 @@ ALLOWED_HOSTS = config(
 # Application definition
 
 INSTALLED_APPS = [
-    "auditlog",
     "core.apps.CoreConfig",
     "django.contrib.admin",
     "django.contrib.auth",
