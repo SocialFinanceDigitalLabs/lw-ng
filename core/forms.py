@@ -1,9 +1,8 @@
-from datetime import datetime
-
 from django import forms
 from django.contrib.auth.models import User
+from django.forms import ModelForm
 
-from core.models import Action, Goal, YoungPerson
+from core.models import Action, ChangeEntry, Goal, YoungPerson
 
 
 class NewYoungPersonForm(forms.Form):
@@ -26,18 +25,30 @@ class NewYoungPersonForm(forms.Form):
 class NewGoalForm(forms.Form):
     title = forms.CharField(label="Title", max_length=50, required=True)
     description = forms.CharField(label="Description", max_length=500, required=True)
-    goal_form = forms.BooleanField(widget=forms.HiddenInput, initial=True)
 
     def save(self, request, commit=True):
         t = self.cleaned_data["title"]
         d = self.cleaned_data["description"]
+        change_entry = ChangeEntry.objects.create(by=request.user)
         goal = Goal.objects.create(
             title=t,
             description=d,
             young_person=request.user.young_person,
-            created_by=request.user,
+            created=change_entry,
         )
         return goal
+
+
+class GoalEditForm(ModelForm):
+    class Meta:
+        model = Goal
+        fields = ["title", "description"]
+
+
+class ActionEditForm(ModelForm):
+    class Meta:
+        model = Action
+        fields = ["description", "deadline"]
 
 
 class NewActionForm(forms.Form):
@@ -50,7 +61,6 @@ class NewActionForm(forms.Form):
         required=True,
     )
     iden = forms.IntegerField(widget=forms.HiddenInput, initial=True)
-    action_form = forms.BooleanField(widget=forms.HiddenInput, initial=True)
 
     def save(self, request, commit=True):
         d = self.cleaned_data["description"]
@@ -58,27 +68,8 @@ class NewActionForm(forms.Form):
         dead = self.cleaned_data["deadline"]
         for goal in request.user.young_person.goals.all():
             if goal.id == id:
+                change_entry = ChangeEntry.objects.create(by=request.user)
                 action = Action.objects.create(
-                    description=d, deadline=dead, goal=goal, created_by=request.user
+                    description=d, deadline=dead, goal=goal, created=change_entry
                 )
                 return action
-
-
-class CompleteGoalForm(forms.Form):
-    goal_i = forms.IntegerField(widget=forms.HiddenInput, initial=True)
-    g_complete = forms.BooleanField(widget=forms.HiddenInput, initial=True)
-
-    def save(self, request, commit=True):
-        id = self.cleaned_data["goal_i"]
-        g = Goal.objects.filter(id=id).update(completed_by=request.user)
-        return g
-
-
-class ArchiveGoalForm(forms.Form):
-    goal_i = forms.IntegerField(widget=forms.HiddenInput, initial=True)
-    g_archive = forms.BooleanField(widget=forms.HiddenInput, initial=True)
-
-    def save(self, request, commit=True):
-        id = self.cleaned_data["goal_i"]
-        g = Goal.objects.filter(id=id).update(archived=datetime.now())
-        return g

@@ -1,26 +1,27 @@
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
+class ChangeEntry(models.Model):
+    at = models.DateTimeField(auto_now_add=True, editable=False)
+    by = models.ForeignKey(
+        User,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
+
+
 class MetadataMixin(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True, editable=False)
-    created_by = models.ForeignKey(
-        User,
+    created = models.ForeignKey(
+        ChangeEntry,
         null=True,
         on_delete=models.SET_NULL,
         related_name="+",
     )
-    updated_at = models.DateTimeField(auto_now=True, editable=False)
-    updated_by = models.ForeignKey(
-        User,
-        null=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-    )
-    completed_at = models.DateTimeField(null=True, editable=False)
-    completed_by = models.ForeignKey(
-        User,
+    updated = models.ForeignKey(
+        ChangeEntry,
         null=True,
         on_delete=models.SET_NULL,
         related_name="+",
@@ -71,9 +72,28 @@ class Goal(MetadataMixin, models.Model):
     young_person = models.ForeignKey(
         YoungPerson, on_delete=models.CASCADE, related_name="goals"
     )
-    archived = models.DateTimeField(null=True, blank=True)
+    completed = models.ForeignKey(
+        ChangeEntry,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
+    archived = models.ForeignKey(
+        ChangeEntry,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
     title = models.TextField(max_length=50)
     description = models.TextField(max_length=500, null=True, blank=True)
+
+    @property
+    def live_actions(self):
+        return self.actions.filter(archived__isnull=True, completed__isnull=True)
+
+    @property
+    def complete_actions(self):
+        return self.actions.filter(completed__isnull=False, archived__isnull=True)
 
 
 class Action(MetadataMixin, models.Model):
@@ -82,6 +102,18 @@ class Action(MetadataMixin, models.Model):
     description = models.TextField(max_length=500)
     owner = models.ForeignKey(
         User, null=True, on_delete=models.SET_NULL, related_name="owned_actions"
+    )
+    completed = models.ForeignKey(
+        ChangeEntry,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
+    archived = models.ForeignKey(
+        ChangeEntry,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
     )
 
 

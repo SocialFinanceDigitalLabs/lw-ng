@@ -1,0 +1,19 @@
+{% extends "core/base.html" %}
+{% block content %}
+  <p>Hello {{yp.user.first_name}}! This is where you can edit actions.</p>
+  
+  <!--Edit goals.--> 
+<h2>Edit goal</h2>
+<div class="container py-5">
+	<form method="POST">
+        {% csrf_token %}
+		{{ action_edit_form }}                    
+		<button class="btn btn-primary" type="submit">Edit action</button>
+	</form>
+    <form action="{% url 'goals' %}">
+        <button class="btn btn-primary">Cancel</button>
+    </form>
+</div>
+<br>
+
+{% endblock content %}

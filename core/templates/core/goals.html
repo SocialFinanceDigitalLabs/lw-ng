@@ -1,15 +1,12 @@
 {% extends "core/base.html" %}
 {% block content %}
-  <p>Hello {{yp.user.first_name}}! This is where you view and add goals.</p>
+  <p>Hello {{yp.user.first_name}}! This is where you view goals.</p>
 
 <!--Add goals.--> 
-<h2>Add a new goal</h2>
-<div class="container py-5">
-	<form method="POST">
-        {% csrf_token %}
-		{{ goal_form }}                    
-		<button class="btn btn-primary" type="submit">Add goal</button>
-	</form>
+<div class="container py-3">
+    <form action="{% url 'create_goal' %}">
+        <button class="btn btn-primary">Add a new goal</button>
+    </form>
 </div>
 <br>
 
@@ -19,22 +16,33 @@
 <div class="container py-3">
     <h3>Goal: {{goal.title}}</h3>
     <i>{{goal.description}}</i>
-    <form method="POST">
-        {% csrf_token %}
-		{{ g_complete }}
-        <input type="hidden" name='goal_i' value="{{goal.id}}">
-        <button class="btn btn-primary" type="submit">Mark goal as complete</button>
-	</form>
-    <form method="POST">
-        {% csrf_token %}
-		{{ g_archive }}
-        <input type="hidden" name='goal_i' value="{{goal.id}}">
-        <button class="btn btn-primary" type="submit">Archive goal</button>
-	</form>    
+    <form action="{% url 'complete_goal' goal.id %}">
+        <button class="btn btn-primary">Complete goal</button>
+    </form>
+    <form action="{% url 'archive_goal' goal.id %}">
+        <button class="btn btn-primary">Archive goal</button>
+    </form>
+    <form action="{% url 'edit_goal' goal.id %}">
+        <button class="btn btn-primary">Edit goal</button>
+    </form>
     <h4>Related actions</h4>
-    {% for action in goal.actions.all %}
+    <h5>To do</h5>
+    {% for action in goal.live_actions %}
         <b>{{action.description}}</b>
         <p><i>Deadline: {{action.deadline}}</i></p>
+    <form action="{% url 'complete_action' action.id %}">
+        <button class="btn btn-primary">Complete action</button>
+    </form>
+    <form action="{% url 'archive_action' action.id %}">
+        <button class="btn btn-primary">Archive action</button>
+    </form>
+    <form action="{% url 'edit_action' action.id %}">
+        <button class="btn btn-primary">Edit action</button>
+    </form>
+    {% endfor %}
+    <h5>Actions acheived</h5>
+    {% for action in goal.complete_actions %}
+        <i>{{action.description}}</i>
     {% endfor %}
     <h4>Add new action</h4>
     <form method="POST">
