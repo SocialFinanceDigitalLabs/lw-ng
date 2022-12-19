@@ -1,0 +1,67 @@
+{% extends "core/base.html" %}
+{% block content %}
+  <p>Hello {{yp.user.first_name}}! This is where you view goals.</p>
+
+<!--Add goals.--> 
+<div class="container py-3">
+    <form action="{% url 'create_goal' %}">
+        <button class="btn btn-primary">Add a new goal</button>
+    </form>
+</div>
+<br>
+
+<!--View current goals and add actions.--> 
+<h2>Current goals</h2>
+{% for goal in current_goals reversed %}
+<div class="container py-3">
+    <h3>Goal: {{goal.title}}</h3>
+    <i>{{goal.description}}</i>
+    <form action="{% url 'complete_goal' goal.id %}">
+        <button class="btn btn-primary">Complete goal</button>
+    </form>
+    <form action="{% url 'archive_goal' goal.id %}">
+        <button class="btn btn-primary">Archive goal</button>
+    </form>
+    <form action="{% url 'edit_goal' goal.id %}">
+        <button class="btn btn-primary">Edit goal</button>
+    </form>
+    <h4>Related actions</h4>
+    <h5>To do</h5>
+    {% for action in goal.live_actions %}
+        <b>{{action.description}}</b>
+        <p><i>Deadline: {{action.deadline}}</i></p>
+    <form action="{% url 'complete_action' action.id %}">
+        <button class="btn btn-primary">Complete action</button>
+    </form>
+    <form action="{% url 'archive_action' action.id %}">
+        <button class="btn btn-primary">Archive action</button>
+    </form>
+    <form action="{% url 'edit_action' action.id %}">
+        <button class="btn btn-primary">Edit action</button>
+    </form>
+    {% endfor %}
+    <h5>Actions acheived</h5>
+    {% for action in goal.complete_actions %}
+        <i>{{action.description}}</i>
+    {% endfor %}
+    <h4>Add new action</h4>
+    <form method="POST">
+        {% csrf_token %}
+		{{ action_form }}
+        <input type="hidden" name='iden' value="{{goal.id}}">
+        <button class="btn btn-primary" type="submit">Add action</button>
+	</form>
+</div>
+{% endfor %}
+
+<br>
+<h2>Achievements</h2>
+{% for goal in complete_goals %}
+<div class="container py-3">
+    <h3>Goal: {{goal.title}}</h3>
+    <i>{{goal.description}}</i>
+</div>
+{% endfor %}
+
+{% endblock content %}
+
