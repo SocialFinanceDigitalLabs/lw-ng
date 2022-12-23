@@ -20,4 +20,10 @@ urlpatterns = [
         views.complete_action,
         name="complete_action",
     ),
+    path("checklist", views.checklist, name="checklist"),
+    path(
+        "checklist/<int:checklist_id>",
+        views.checklist_questions,
+        name="checklist_questions",
+    ),
 ]
