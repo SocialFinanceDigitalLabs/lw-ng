@@ -1,8 +1,9 @@
 # --> Building Stage
 FROM python:3.10-slim AS builder
 
-RUN apt-get update && \
-    apt-get install -y libpq-dev gcc
+RUN apt-get update
+RUN apt-get install -y libpq-dev gcc \
+    musl-dev libffi-dev musl-dev g++
 
 # Create & Activate Virtual Env
 RUN python -m venv /opt/venv
@@ -14,6 +15,7 @@ COPY pyproject.toml poetry.lock .
 # Because Poetry sometimes has issues with Docker, we revert back to PIP
 RUN poetry export -f requirements.txt --output requirements.txt
 #COPY requirements.txt .
+RUN pip install psycopg2-binary
 RUN pip install -r requirements.txt
 
 
@@ -21,7 +23,7 @@ RUN pip install -r requirements.txt
 FROM python:3.10-slim
 
 RUN apt-get update && \
-    apt-get install -y libpq-dev && \
+    apt-get install -y libpq-dev python3-dev gcc && \
     rm -rf /var/lib/apt/lists/*
 
 # Move from builder to this image
