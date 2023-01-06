@@ -1,7 +1,9 @@
 from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
+import factory
+from core.factories.people import ManagerFactory
 
-from core.models import PersonalAdvisor, YoungPerson
+from core.models import PersonalAdvisor, YoungPerson, Manager, Goal, Action
 
 User = get_user_model()
 
@@ -9,27 +11,15 @@ User = get_user_model()
 class Command(BaseCommand):
     help = "Deletes all data in user defined models"
 
+    def add_arguments(self, parser):
+        parser.add_argument("number_of_managers", type=int, default=100)
+
     def handle(self, *args, **options):
-        pa = self.create_pa("Peter", "Anders")
-        for i in range(10):
-            self.create_yp("Young", f"Person{i}", pa)
+        manager_count = options["number_of_managers"]
 
-    def create_pa(self, firstname, lastname):
-        user, created = User.objects.update_or_create(
-            username=f"{firstname}.{lastname}",
-            defaults=dict(first_name=firstname, last_name=lastname),
-        )
-        pa, created = PersonalAdvisor.objects.update_or_create(user=user)
-        user.set_password("password")
-        user.is_staff = True
-        user.save()
-        return pa
+        models = [PersonalAdvisor, YoungPerson, Manager, Goal, Action]
+        for m in models:
+            m.objects.all().delete()
 
-    def create_yp(self, firstname, lastname, pa):
-        user, created = User.objects.update_or_create(
-            username=f"{firstname}.{lastname}",
-            defaults=dict(first_name=firstname, last_name=lastname),
-        )
-        yp, created = YoungPerson.objects.update_or_create(user=user)
-        yp.personal_advisors.add(pa)
-        return yp
+        with factory.Faker.override_default_locale("en_GB"):
+            ManagerFactory.create_batch(manager_count)
