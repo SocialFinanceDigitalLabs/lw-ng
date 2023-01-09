@@ -3,7 +3,7 @@ from random import randint
 from django.db.models.signals import post_save
 from factory.django import DjangoModelFactory
 import factory
-from core.models import PersonalAdvisor, YoungPerson
+from core.models import PersonalAdvisor, YoungPerson, Manager
 
 from django.contrib.auth import get_user_model
 
@@ -67,4 +67,4 @@ class ManagerFactory(DjangoModelFactory):
     )
 
     class Meta:
-        model = PersonalAdvisor
+        model = Manager
