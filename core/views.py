@@ -11,7 +11,7 @@ from .forms import (
     NewGoalForm,
     NewYoungPersonForm,
 )
-from .models import Action, Goal
+from .models import Action, Checklist, Goal
 
 
 def index(request):
@@ -189,3 +189,31 @@ def complete_action(request, action_id):
     except Action.DoesNotExist:
         messages.error(request, "Action not completed.")
     return redirect("goals")
+
+
+@login_required
+def checklist(request):
+    yp = request.user.young_person
+    checklist = Checklist.objects.all()
+    context = {
+        "yp": yp,
+        "checklist": checklist,
+    }
+    return render(request, template_name="core/checklist.html", context=context)
+
+
+@login_required
+def checklist_questions(request, checklist_id):
+    yp = request.user.young_person
+    try:
+        checklist = Checklist.objects.get(pk=checklist_id)
+        questions = checklist.checklist_questions.all()
+    except checklist.DoesNotExist:
+        raise Http404("Checklist does not exist")
+    context = {
+        "yp": yp,
+        "questions": questions,
+    }
+    return render(
+        request, template_name="core/checklist_questions.html", context=context
+    )

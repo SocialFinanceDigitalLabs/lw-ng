@@ -1,0 +1,17 @@
+{% extends "core/base.html" %}
+{% block content %}
+  <p>Hello {{yp.user.first_name}}! Check in.</p>
+
+<!--Select checklist to view.--> 
+<h2>Checklist</h2>
+{% for checklist in checklist %}
+<div class="container py-3">
+    <h3>{{checklist.title}}</h3>
+    <form action="{% url 'checklist_questions' checklist.id %}">
+        <button class="btn btn-primary">Start</button>
+    </form>
+</div>
+{% endfor %}
+
+{% endblock content %}
+

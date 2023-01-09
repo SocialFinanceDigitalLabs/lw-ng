@@ -1,0 +1,19 @@
+{% extends "core/base.html" %}
+{% block content %}
+  <p>Hello {{yp.user.first_name}}! This is where you can update your checklist.</p>
+
+<!--View checklist questions.--> 
+<h2>Checklist</h2>
+{% for question in questions %}
+<div class="container py-3">
+    <h5>{{question.text}}</h5>
+</div>
+{% endfor %}
+
+<div class="container py-3">
+    <form action="{% url 'checklist' %}">
+        <button class="btn btn-primary">Back</button>
+    </form>
+</div>
+
+{% endblock content %}
