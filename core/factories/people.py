@@ -8,6 +8,7 @@ from core.models import PersonalAdvisor, YoungPerson, Manager
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
+DEFAULT_PASSWORD = "somePassword!"
 
 
 @factory.django.mute_signals(post_save)
@@ -16,10 +17,13 @@ class UserFactory(factory.django.DjangoModelFactory):
     email = username
     first_name = factory.Faker("first_name")
     last_name = factory.Faker("last_name")
-    password = "somePassword!"
+    plaintext_password = factory.PostGenerationMethodCall(
+        "set_password", DEFAULT_PASSWORD
+    )
 
     class Meta:
         model = User
+        exclude = ("plaintext_password",)
 
 
 class YoungPersonFactory(DjangoModelFactory):

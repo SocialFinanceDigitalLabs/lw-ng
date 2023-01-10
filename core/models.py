@@ -51,7 +51,7 @@ class PersonalAdvisor(models.Model):
         User, on_delete=models.CASCADE, related_name="personal_advisor"
     )
     manager = models.ForeignKey(
-        "PersonalAdvisor",
+        "Manager",
         related_name="personal_advisors",
         null=True,
         blank=True,
