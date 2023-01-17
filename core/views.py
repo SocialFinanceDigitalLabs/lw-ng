@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import redirect, render
 
+from core import permissions
+
 from .forms import (
     ActionEditForm,
     ChangeEntry,
@@ -15,7 +17,12 @@ from .models import Action, Checklist, Goal
 
 
 def index(request):
-    return render(request, "core/index.html")
+    if permissions.is_manager(request.user):
+        return render(request, "core/manager/index.html")
+    elif permissions.is_personal_advisor(request.user):
+        return render(request, "core/pa/index.html")
+    elif permissions.is_young_person(request.user):
+        return render(request, "core/yp/index.html")
 
 
 @login_required
@@ -92,7 +99,7 @@ def goals(request):
         "current_goals": current_goals,
         "complete_goals": complete_goals,
     }
-    return render(request, template_name="core/goals.html", context=context)
+    return render(request, template_name="core/yp/goals.html", context=context)
 
 
 @login_required

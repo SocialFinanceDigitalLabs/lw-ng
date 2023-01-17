@@ -6,7 +6,9 @@
     {% include "core/head.html" %}
   </head>
   <body class="bg-white font-sans leading-normal text-grey-800" style="overflow: hidden;">
-    {% include "core/header.html" %}
+    {% block header %}
+      {% include "core/header.html" %}
+    {% endblock %}
     <main>
         {% include "core/messages.html" %} 
         <div class="container">
