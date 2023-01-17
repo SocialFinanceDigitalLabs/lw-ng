@@ -14,8 +14,8 @@ import os
 from logging.config import dictConfig
 from pathlib import Path
 
-import django_heroku
 import dj_database_url
+import django_heroku
 from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -142,6 +142,8 @@ WEBPACK_LOADER = {
     "MANIFEST_FILE": BASE_DIR / "frontend/build/manifest.json",
 }
 
+LOGIN_REDIRECT_URL = "index"
+LOGOUT_REDIRECT_URL = "login"
 
 LOGGING = {
     "version": 1,
