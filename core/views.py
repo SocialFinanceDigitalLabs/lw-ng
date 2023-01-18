@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import redirect, render
 
+from core import permissions
+
 from .forms import (
     ActionEditForm,
     ChangeEntry,
@@ -14,8 +16,14 @@ from .forms import (
 from .models import Action, Checklist, Goal
 
 
+@login_required
 def index(request):
-    return render(request, "core/index.html")
+    if permissions.is_manager(request.user):
+        return render(request, "core/manager/index.html")
+    elif permissions.is_personal_advisor(request.user):
+        return render(request, "core/pa/index.html")
+    elif permissions.is_young_person(request.user):
+        return render(request, "core/yp/index.html")
 
 
 @login_required
@@ -62,7 +70,7 @@ def create_goal(request):
         "goal_form": goal_form,
         "yp": yp,
     }
-    return render(request, template_name="core/create_goal.html", context=context)
+    return render(request, template_name="core/yp/create_goal.html", context=context)
 
 
 @login_required
@@ -92,7 +100,7 @@ def goals(request):
         "current_goals": current_goals,
         "complete_goals": complete_goals,
     }
-    return render(request, template_name="core/goals.html", context=context)
+    return render(request, template_name="core/yp/goals.html", context=context)
 
 
 @login_required
@@ -118,7 +126,7 @@ def edit_goal(request, goal_id):
         "yp": yp,
         "goal_edit_form": form,
     }
-    return render(request, template_name="core/edit_goal.html", context=context)
+    return render(request, template_name="core/yp/edit_goal.html", context=context)
 
 
 @login_required
@@ -166,7 +174,7 @@ def edit_action(request, action_id):
         "yp": yp,
         "action_edit_form": form,
     }
-    return render(request, template_name="core/edit_action.html", context=context)
+    return render(request, template_name="core/yp/edit_action.html", context=context)
 
 
 @login_required
@@ -199,7 +207,7 @@ def checklist(request):
         "yp": yp,
         "checklist": checklist,
     }
-    return render(request, template_name="core/checklist.html", context=context)
+    return render(request, template_name="core/yp/checklist.html", context=context)
 
 
 @login_required
@@ -215,5 +223,5 @@ def checklist_questions(request, checklist_id):
         "questions": questions,
     }
     return render(
-        request, template_name="core/checklist_questions.html", context=context
+        request, template_name="core/yp/checklist_questions.html", context=context
     )

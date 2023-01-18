@@ -1,0 +1,15 @@
+{% extends "core/header.html" %}
+{% load lw_tags %}
+
+{% block level_sidebar_links %}
+  {% if user|is_personal_advisor or user|is_manager %}
+    <!-- show the YP name if it's the manager/pa -->
+    <li>
+      {{yp.user.first_name}}
+    </li>
+  {% endif %}
+  <li><a href="#!">Profile</a></li>
+  <li><a href="{%url 'goals'%}">Goals</a></li>
+  <li><a href="{%url 'checklist'%}">Checklist</a></li>
+  <li>...</li>
+{% endblock level_sidebar_links %}
