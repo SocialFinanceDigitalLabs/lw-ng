@@ -69,7 +69,7 @@ def create_goal(request):
         "goal_form": goal_form,
         "yp": yp,
     }
-    return render(request, template_name="core/create_goal.html", context=context)
+    return render(request, template_name="core/yp/create_goal.html", context=context)
 
 
 @login_required
@@ -125,7 +125,7 @@ def edit_goal(request, goal_id):
         "yp": yp,
         "goal_edit_form": form,
     }
-    return render(request, template_name="core/edit_goal.html", context=context)
+    return render(request, template_name="core/yp/edit_goal.html", context=context)
 
 
 @login_required
@@ -173,7 +173,7 @@ def edit_action(request, action_id):
         "yp": yp,
         "action_edit_form": form,
     }
-    return render(request, template_name="core/edit_action.html", context=context)
+    return render(request, template_name="core/yp/edit_action.html", context=context)
 
 
 @login_required
@@ -206,7 +206,7 @@ def checklist(request):
         "yp": yp,
         "checklist": checklist,
     }
-    return render(request, template_name="core/checklist.html", context=context)
+    return render(request, template_name="core/yp/checklist.html", context=context)
 
 
 @login_required
@@ -222,5 +222,5 @@ def checklist_questions(request, checklist_id):
         "questions": questions,
     }
     return render(
-        request, template_name="core/checklist_questions.html", context=context
+        request, template_name="core/yp/checklist_questions.html", context=context
     )

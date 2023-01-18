@@ -25,8 +25,11 @@
       <li class="divider"></li>
       <li><a href="#!">Dashboard</a></li>
       <li class="divider"></li>
-      <li><a href="{%url 'invite'%}">Invite young person</a></li>
-      <li class="divider"></li>
+      {% if user|is_personal_advisor or user|is_manager %}
+        <!-- if user is pa or manager, show invite young person link -->
+        <li><a href="{%url 'invite'%}">Invite young person</a></li>
+        <li class="divider"></li>
+      {% endif %}
       <li><a href="{%url 'logout'%}">Log out</a></li>
     </ul>
     {% endif %}
@@ -47,7 +50,7 @@
     {% if user|is_personal_advisor %}
     <!-- if user is pa, show the young people link -->
       <li>
-        <a href="#!">Young People</a>
+        <a href="{%url 'yp'%}">Young People</a>
       </li>
     {% endif %}
     {% block level_sidebar_links %}{% endblock level_sidebar_links %}
