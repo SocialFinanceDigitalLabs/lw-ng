@@ -16,6 +16,7 @@ from .forms import (
 from .models import Action, Checklist, Goal
 
 
+@login_required
 def index(request):
     if permissions.is_manager(request.user):
         return render(request, "core/manager/index.html")
