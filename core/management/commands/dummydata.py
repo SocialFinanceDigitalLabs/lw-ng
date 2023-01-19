@@ -23,3 +23,15 @@ class Command(BaseCommand):
 
         with factory.Faker.override_default_locale("en_GB"):
             ManagerFactory.create_batch(manager_count)
+
+        print("[[Young People]]")
+        for yp in YoungPerson.objects.all():
+            print(yp.user.username)
+
+        print("[[Personal Advisors]]")
+        for pa in PersonalAdvisor.objects.all():
+            print(pa.user.username)
+
+        print("[[Managers]]")
+        for m in Manager.objects.all():
+            print(m.user.username)

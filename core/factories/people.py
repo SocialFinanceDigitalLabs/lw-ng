@@ -8,15 +8,21 @@ from core.models import PersonalAdvisor, YoungPerson, Manager
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
-DEFAULT_PASSWORD = "somePassword!"
+DEFAULT_PASSWORD = "test"
 
 
 @factory.django.mute_signals(post_save)
 class UserFactory(factory.django.DjangoModelFactory):
-    username = factory.Faker("email")
-    email = username
-    first_name = factory.Faker("first_name")
-    last_name = factory.Faker("last_name")
+    username = factory.LazyAttribute(
+        lambda a: a.first_name.lower().strip() + "." + a.last_name.lower().strip()
+    )
+    email = factory.LazyAttribute(lambda a: a.username + "@example.test")
+    first_name = factory.LazyAttribute(
+        lambda a: factory.Faker._get_faker().unique.first_name()
+    )
+    last_name = factory.LazyAttribute(
+        lambda a: factory.Faker._get_faker().unique.last_name()
+    )
     plaintext_password = factory.PostGenerationMethodCall(
         "set_password", DEFAULT_PASSWORD
     )
