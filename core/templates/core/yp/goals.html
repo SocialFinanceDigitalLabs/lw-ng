@@ -1,6 +1,8 @@
 {% extends "core/yp/base.html" %}
 {% block content %}
-  <p>Hello {{yp.user.first_name}}! This is where you view goals.</p>
+{% load lw_tags %}
+
+  <p>Hello {{user.first_name}}! This is where you view, add, and edit {% if user|is_personal_advisor or user|is_manager %}{{yp.user.first_name}} {{yp.user.last_name}}'s{% endif %} goals.</p>
 
 <!--Add goals.--> 
 <div class="container py-3">

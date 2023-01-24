@@ -13,7 +13,7 @@ from .forms import (
     NewGoalForm,
     NewYoungPersonForm,
 )
-from .models import Action, Checklist, Goal
+from .models import Action, Checklist, Goal, YoungPerson
 
 
 @login_required
@@ -24,6 +24,25 @@ def index(request):
         return render(request, "core/pa/index.html")
     elif permissions.is_young_person(request.user):
         return render(request, "core/yp/index.html")
+
+
+@login_required
+def index_yp(request, young_person_id):
+    if permissions.is_manager(request.user) or permissions.is_personal_advisor(
+        request.user
+    ):
+        yp = YoungPerson.objects.get(pk=young_person_id)
+        user = request.user
+        return render(
+            request,
+            "core/yp/index.html",
+            context={
+                "yp": yp,
+                "user": user,
+            },
+        )
+    else:
+        return redirect("index")
 
 
 @login_required
@@ -75,6 +94,7 @@ def create_goal(request):
 
 @login_required
 def goals(request):
+    user = request.user
     yp = request.user.young_person
     current_goals = request.user.young_person.goals.filter(
         completed__isnull=True, archived__isnull=True
@@ -99,6 +119,35 @@ def goals(request):
         "yp": yp,
         "current_goals": current_goals,
         "complete_goals": complete_goals,
+        "user": user,
+    }
+    return render(request, template_name="core/yp/goals.html", context=context)
+
+
+@login_required
+def yp_goals(request, young_person_id):
+    user = request.user
+    yp = YoungPerson.objects.get(pk=young_person_id)
+    current_goals = yp.goals.filter(completed__isnull=True, archived__isnull=True)
+    complete_goals = yp.goals.filter(completed__isnull=False, archived__isnull=True)
+    action_form = NewActionForm()
+    if request.method == "POST":
+        action_form = NewActionForm(request.POST)
+        if action_form.is_valid():
+            action_form.save(request)
+            messages.success(request, "Action saved.")
+            return redirect("goals")
+        else:
+            messages.error(request, "Action not saved. Invalid information.")
+            return redirect("goals")
+    else:
+        pass
+    context = {
+        "action_form": action_form,
+        "yp": yp,
+        "current_goals": current_goals,
+        "complete_goals": complete_goals,
+        "user": user,
     }
     return render(request, template_name="core/yp/goals.html", context=context)
 

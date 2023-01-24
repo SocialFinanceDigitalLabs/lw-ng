@@ -4,9 +4,11 @@ from core import views
 
 urlpatterns = [
     path("", views.index, name="index"),
+    path("<int:young_person_id>", views.index_yp, name="yp_index"),
     path("yp", views.yp, name="yp"),
     path("invite", views.invite, name="invite"),
     path("goals", views.goals, name="goals"),
+    path("<int:young_person_id>/goals", views.yp_goals, name="yp_goals"),
     path("create_goal", views.create_goal, name="create_goal"),
     path("goals/<int:goal_id>", views.edit_goal, name="edit_goal"),
     path("archive_goal/<int:goal_id>/", views.archive_goal, name="archive_goal"),
@@ -21,6 +23,7 @@ urlpatterns = [
         name="complete_action",
     ),
     path("checklist", views.checklist, name="checklist"),
+    path("<int:young_person_id>/checklist", views.checklist, name="yp_checklist"),
     path(
         "checklist/<int:checklist_id>",
         views.checklist_questions,
