@@ -3,17 +3,18 @@
 
 {% block level_sidebar_links %}
   {% if user|is_personal_advisor or user|is_manager %}
-    <!-- show the YP name if it's the manager/pa -->
+    <!-- show the YP name and derived links if it's the manager/pa -->
     <li>
       {{yp.user.first_name}} {{yp.user.last_name}}
     </li>
-    <li><a href="{%url 'yp_index' yp.id %}">Profile</a></li>
-    <li><a href="{%url 'yp_goals' yp.id %}">Goals</a></li>
-    <li><a href="{%url 'yp_checklist' yp.id %}">Checklist</a></li>
+    <li><a href="{% url 'yp_index' yp.id %}">Profile</a></li>
+    <li><a href="{% url 'yp_goals' yp.id %}">Goals</a></li>
+    <li><a href="{% url 'yp_checklist' yp.id %}">Checklist</a></li>
   {% else %}
-    <li><a href="{%url 'index'%}">Profile</a></li>
-    <li><a href="{%url 'goals'%}">Goals</a></li>
-    <li><a href="{%url 'checklist'%}">Checklist</a></li>
+    <!-- show the standard links if it's a young person -->
+    <li><a href="{% url 'index' %}">Profile</a></li>
+    <li><a href="{% url 'goals' %}">Goals</a></li>
+    <li><a href="{% url 'checklist' %}">Checklist</a></li>
   {% endif %}
 
 

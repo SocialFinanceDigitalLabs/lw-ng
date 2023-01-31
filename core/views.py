@@ -73,6 +73,7 @@ def invite(request):
 
 @login_required
 def create_goal(request):
+    user = request.user
     yp = request.user.young_person
     goal_form = NewGoalForm()
     if request.method == "POST":
@@ -88,6 +89,29 @@ def create_goal(request):
     context = {
         "goal_form": goal_form,
         "yp": yp,
+        "user": user,
+    }
+    return render(request, template_name="core/yp/create_goal.html", context=context)
+
+
+@login_required
+def create_yp_goal(request, young_person_id):
+    user = request.user
+    yp = YoungPerson.objects.get(pk=young_person_id)
+    if request.method == "POST":
+        goal_form = NewGoalForm(young_person_id, request.POST)
+        if goal_form.is_valid():
+            goal_form.save(young_person_id, request.POST)
+            messages.success(request, "Goal saved.")
+            return redirect("yp_goals", young_person_id)
+        else:
+            messages.error(request, "Goal not saved. Invalid information.")
+            return redirect("yp_goals", young_person_id)
+
+    context = {
+        "goal_form": goal_form,
+        "yp": yp,
+        "user": user,
     }
     return render(request, template_name="core/yp/create_goal.html", context=context)
 
@@ -112,8 +136,6 @@ def goals(request):
         else:
             messages.error(request, "Action not saved. Invalid information.")
             return redirect("goals")
-    else:
-        pass
     context = {
         "action_form": action_form,
         "yp": yp,
@@ -136,10 +158,10 @@ def yp_goals(request, young_person_id):
         if action_form.is_valid():
             action_form.save(request)
             messages.success(request, "Action saved.")
-            return redirect("goals")
+            return redirect("yp_goals")
         else:
             messages.error(request, "Action not saved. Invalid information.")
-            return redirect("goals")
+            return redirect("yp_goals")
     else:
         pass
     context = {
