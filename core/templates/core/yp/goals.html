@@ -2,27 +2,15 @@
 {% block content %}
 {% load lw_tags %}
 
-  <p>Hello {{user.first_name}}! This is where you view, add, and edit {% if user|is_personal_advisor or user|is_manager %}{{yp.user.first_name}} {{yp.user.last_name}}'s{% endif %} goals.</p>
+  <p>Hello {{request.user.first_name}}! This is where you view, add, and edit {% if request.user|is_personal_advisor or request.user|is_manager %}{{yp.user.first_name}} {{yp.user.last_name}}'s{% endif %} goals.</p>
 
-  {% if user|is_personal_advisor or user|is_manager %}
 <!--Add goals to young person.--> 
 <div class="container py-3">
-    <form action="{% url 'create_yp_goal' yp.id %}">
+    <form action="{% url 'create_goal' yp.id %}">
         <button class="btn btn-primary">Add a new goal</button>
     </form>
 </div>
 <br>
-{% endif %}
-
-{% if user|is_young_person %}
-<!--Add goals.--> 
-<div class="container py-3">
-    <form action="{% url 'create_goal' %}">
-        <button class="btn btn-primary">Add a new goal</button>
-    </form>
-</div>
-<br>
-{% endif %}
 
 <!--View current goals and add actions.--> 
 <h2>Current goals</h2>
@@ -56,7 +44,7 @@
     {% endfor %}
     <h5>Actions acheived</h5>
     {% for action in goal.complete_actions %}
-        <i>{{action.description}}</i>
+        <i><li>{{action.description}}</li></i>
     {% endfor %}
     <h4>Add new action</h4>
     <form method="POST">

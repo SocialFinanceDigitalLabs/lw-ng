@@ -2,7 +2,7 @@
 {% load lw_tags %}
 
 {% block content %}
-  <p>Hello {{user.first_name}}! This is where you can add {% if user|is_personal_advisor or user|is_manager %}{{yp.user.first_name}} {{yp.user.last_name}}'s{% endif %} goals.</p>
+  <p>Hello {{request.user.first_name}}! This is where you can add {% if request.user|is_personal_advisor or user|is_manager %}{{yp.user.first_name}} {{yp.user.last_name}}'s{% endif %} goals.</p>
 
 <!--Add goals.--> 
 <h2>Add a new goal</h2>
@@ -13,17 +13,9 @@
 		<button class="btn btn-primary" type="submit">Add goal</button>
 	</form>
 
-    {% if user|is_young_person %}
-    <form action="{% url 'goals' %}">
+    <form action="{% url 'goals' yp.id %}">
         <button class="btn btn-primary">Cancel</button>
     </form>
-    {% endif %}
-
-    {% if user|is_personal_advisor or user|is_manager %}
-    <form action="{% url 'yp_goals' yp.id %}">
-        <button class="btn btn-primary">Cancel</button>
-    </form>
-    {% endif %}
 </div>
 <br>
 

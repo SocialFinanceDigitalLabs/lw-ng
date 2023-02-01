@@ -8,14 +8,11 @@
       {{yp.user.first_name}} {{yp.user.last_name}}
     </li>
     <li><a href="{% url 'yp_index' yp.id %}">Profile</a></li>
-    <li><a href="{% url 'yp_goals' yp.id %}">Goals</a></li>
-    <li><a href="{% url 'yp_checklist' yp.id %}">Checklist</a></li>
-  {% else %}
-    <!-- show the standard links if it's a young person -->
+  {% elif user|is_young_person %}
     <li><a href="{% url 'index' %}">Profile</a></li>
-    <li><a href="{% url 'goals' %}">Goals</a></li>
-    <li><a href="{% url 'checklist' %}">Checklist</a></li>
   {% endif %}
+    <li><a href="{% url 'goals' yp.id %}">Goals</a></li>
+    <li><a href="{% url 'checklist' yp.id %}">Checklist</a></li>
 
 
 {% endblock level_sidebar_links %}

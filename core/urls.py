@@ -7,12 +7,8 @@ urlpatterns = [
     path("<int:young_person_id>", views.index_yp, name="yp_index"),
     path("yp", views.yp, name="yp"),
     path("invite", views.invite, name="invite"),
-    path("goals", views.goals, name="goals"),
-    path("<int:young_person_id>/goals", views.yp_goals, name="yp_goals"),
-    path("create_goal", views.create_goal, name="create_goal"),
-    path(
-        "<int:young_person_id>/create_goal", views.create_yp_goal, name="create_yp_goal"
-    ),
+    path("<int:young_person_id>/goals", views.goals, name="goals"),
+    path("<int:young_person_id>/create_goal", views.create_goal, name="create_goal"),
     path("goals/<int:goal_id>", views.edit_goal, name="edit_goal"),
     path("archive_goal/<int:goal_id>/", views.archive_goal, name="archive_goal"),
     path("complete_goal/<int:goal_id>/", views.complete_goal, name="complete_goal"),
@@ -25,10 +21,9 @@ urlpatterns = [
         views.complete_action,
         name="complete_action",
     ),
-    path("checklist", views.checklist, name="checklist"),
-    path("<int:young_person_id>/checklist", views.checklist, name="yp_checklist"),
+    path("<int:young_person_id>/checklist", views.checklist, name="checklist"),
     path(
-        "checklist/<int:checklist_id>",
+        "<int:young_person_id>/checklist/<int:checklist_id>",
         views.checklist_questions,
         name="checklist_questions",
     ),
