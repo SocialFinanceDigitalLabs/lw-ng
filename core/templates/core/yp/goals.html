@@ -1,10 +1,12 @@
 {% extends "core/yp/base.html" %}
 {% block content %}
-  <p>Hello {{yp.user.first_name}}! This is where you view goals.</p>
+{% load lw_tags %}
 
-<!--Add goals.--> 
+  <p>Hello {{request.user.first_name}}! This is where you view, add, and edit {% if request.user|is_personal_advisor or request.user|is_manager %}{{yp.user.first_name}} {{yp.user.last_name}}'s{% endif %} goals.</p>
+
+<!--Add goals to young person.--> 
 <div class="container py-3">
-    <form action="{% url 'create_goal' %}">
+    <form action="{% url 'create_goal' yp.id %}">
         <button class="btn btn-primary">Add a new goal</button>
     </form>
 </div>
@@ -42,7 +44,7 @@
     {% endfor %}
     <h5>Actions acheived</h5>
     {% for action in goal.complete_actions %}
-        <i>{{action.description}}</i>
+        <i><li>{{action.description}}</li></i>
     {% endfor %}
     <h4>Add new action</h4>
     <form method="POST">

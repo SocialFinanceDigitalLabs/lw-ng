@@ -13,7 +13,7 @@ from .forms import (
     NewGoalForm,
     NewYoungPersonForm,
 )
-from .models import Action, Checklist, Goal
+from .models import Action, Checklist, Goal, YoungPerson
 
 
 @login_required
@@ -23,7 +23,31 @@ def index(request):
     elif permissions.is_personal_advisor(request.user):
         return render(request, "core/pa/index.html")
     elif permissions.is_young_person(request.user):
-        return render(request, "core/yp/index.html")
+        yp = request.user.young_person
+        return render(
+            request,
+            "core/yp/index.html",
+            context={
+                "yp": yp,
+            },
+        )
+
+
+@login_required
+def index_yp(request, young_person_id):
+    if permissions.is_manager(request.user) or permissions.is_personal_advisor(
+        request.user
+    ):
+        yp = YoungPerson.objects.get(pk=young_person_id)
+        return render(
+            request,
+            "core/yp/index.html",
+            context={
+                "yp": yp,
+            },
+        )
+    else:
+        return redirect("index")
 
 
 @login_required
@@ -53,18 +77,19 @@ def invite(request):
 
 
 @login_required
-def create_goal(request):
-    yp = request.user.young_person
-    goal_form = NewGoalForm()
+def create_goal(request, young_person_id):
+    yp = YoungPerson.objects.get(pk=young_person_id)
     if request.method == "POST":
         goal_form = NewGoalForm(request.POST)
         if goal_form.is_valid():
-            goal_form.save(request)
+            goal_form.save(yp, request.user)
             messages.success(request, "Goal saved.")
-            return redirect("goals")
+            return redirect("goals", young_person_id)
         else:
             messages.error(request, "Goal not saved. Invalid information.")
-            return redirect("goals")
+            return redirect("goals", young_person_id)
+    else:
+        goal_form = NewGoalForm()
 
     context = {
         "goal_form": goal_form,
@@ -74,24 +99,20 @@ def create_goal(request):
 
 
 @login_required
-def goals(request):
-    yp = request.user.young_person
-    current_goals = request.user.young_person.goals.filter(
-        completed__isnull=True, archived__isnull=True
-    )
-    complete_goals = request.user.young_person.goals.filter(
-        completed__isnull=False, archived__isnull=True
-    )
+def goals(request, young_person_id):
+    yp = YoungPerson.objects.get(pk=young_person_id)
+    current_goals = yp.goals.filter(completed__isnull=True, archived__isnull=True)
+    complete_goals = yp.goals.filter(completed__isnull=False, archived__isnull=True)
     action_form = NewActionForm()
     if request.method == "POST":
         action_form = NewActionForm(request.POST)
         if action_form.is_valid():
             action_form.save(request)
             messages.success(request, "Action saved.")
-            return redirect("goals")
+            return redirect("goals", young_person_id)
         else:
             messages.error(request, "Action not saved. Invalid information.")
-            return redirect("goals")
+            return redirect("goals", young_person_id)
     else:
         pass
     context = {
@@ -105,11 +126,11 @@ def goals(request):
 
 @login_required
 def edit_goal(request, goal_id):
-    yp = request.user.young_person
     try:
         goal = Goal.objects.get(pk=goal_id)
     except Goal.DoesNotExist:
         raise Http404("Goal does not exist")
+    yp = goal.young_person
     form = GoalEditForm(instance=goal)
     if request.method == "POST":
         form = GoalEditForm(request.POST, instance=goal)
@@ -134,10 +155,11 @@ def archive_goal(request, goal_id):
     try:
         change_entry = ChangeEntry.objects.create(by=request.user)
         Goal.objects.filter(id=goal_id).update(archived=change_entry)
+        yp = Goal.objects.get(pk=goal_id).young_person
         messages.success(request, "Goal archived.")
     except Goal.DoesNotExist:
         messages.error(request, "Goal not archived.")
-    return redirect("goals")
+    return redirect("goals", yp.id)
 
 
 @login_required
@@ -145,26 +167,27 @@ def complete_goal(request, goal_id):
     try:
         change_entry = ChangeEntry.objects.create(by=request.user)
         Goal.objects.filter(id=goal_id).update(completed=change_entry)
+        yp = Goal.objects.get(pk=goal_id).young_person
         messages.success(request, "Goal completed.")
     except Goal.DoesNotExist:
         messages.error(request, "Goal not completed.")
-    return redirect("goals")
+    return redirect("goals", yp.id)
 
 
 @login_required
 def edit_action(request, action_id):
-    yp = request.user.young_person
     try:
         action = Action.objects.get(pk=action_id)
     except action.DoesNotExist:
         raise Http404("Action does not exist")
+    yp = action.goal.young_person
     form = ActionEditForm(instance=action)
     if request.method == "POST":
         form = ActionEditForm(request.POST, instance=action)
         if form.is_valid():
             form.save()
             messages.success(request, "Action updated.")
-            return redirect("goals")
+            return redirect("goals", yp.id)
         else:
             messages.error(request, "Action not saved. Invalid information.")
     else:
@@ -182,10 +205,11 @@ def archive_action(request, action_id):
     try:
         change_entry = ChangeEntry.objects.create(by=request.user)
         Action.objects.filter(id=action_id).update(archived=change_entry)
+        yp = Action.objects.get(pk=action_id).goal.young_person
         messages.success(request, "Action archived.")
     except Action.DoesNotExist:
         messages.error(request, "Action not archived.")
-    return redirect("goals")
+    return redirect("goals", yp.id)
 
 
 @login_required
@@ -193,15 +217,17 @@ def complete_action(request, action_id):
     try:
         change_entry = ChangeEntry.objects.create(by=request.user)
         Action.objects.filter(id=action_id).update(completed=change_entry)
+        action = Action.objects.get(pk=action_id)
+        yp = action.goal.young_person
         messages.success(request, "Action completed.")
     except Action.DoesNotExist:
         messages.error(request, "Action not completed.")
-    return redirect("goals")
+    return redirect("goals", yp.id)
 
 
 @login_required
-def checklist(request):
-    yp = request.user.young_person
+def checklist(request, young_person_id):
+    yp = YoungPerson.objects.get(pk=young_person_id)
     checklist = Checklist.objects.all()
     context = {
         "yp": yp,
@@ -211,8 +237,8 @@ def checklist(request):
 
 
 @login_required
-def checklist_questions(request, checklist_id):
-    yp = request.user.young_person
+def checklist_questions(request, young_person_id, checklist_id):
+    yp = YoungPerson.objects.get(pk=young_person_id)
     try:
         checklist = Checklist.objects.get(pk=checklist_id)
         questions = checklist.checklist_questions.all()

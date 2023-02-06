@@ -10,7 +10,7 @@
 		{{ goal_edit_form }}                    
 		<button class="btn btn-primary" type="submit">Edit goal</button>
 	</form>
-    <form action="{% url 'goals' %}">
+    <form action="{% url 'goals' yp.id %}">
         <button class="btn btn-primary">Cancel</button>
     </form>
 </div>

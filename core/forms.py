@@ -26,14 +26,14 @@ class NewGoalForm(forms.Form):
     title = forms.CharField(label="Title", max_length=50, required=True)
     description = forms.CharField(label="Description", max_length=500, required=True)
 
-    def save(self, request, commit=True):
+    def save(self, yp, user, commit=True):
         t = self.cleaned_data["title"]
         d = self.cleaned_data["description"]
-        change_entry = ChangeEntry.objects.create(by=request.user)
+        change_entry = ChangeEntry.objects.create(by=user)
         goal = Goal.objects.create(
             title=t,
             description=d,
-            young_person=request.user.young_person,
+            young_person=yp,
             created=change_entry,
         )
         return goal
@@ -66,10 +66,9 @@ class NewActionForm(forms.Form):
         d = self.cleaned_data["description"]
         id = self.cleaned_data["iden"]
         dead = self.cleaned_data["deadline"]
-        for goal in request.user.young_person.goals.all():
-            if goal.id == id:
-                change_entry = ChangeEntry.objects.create(by=request.user)
-                action = Action.objects.create(
-                    description=d, deadline=dead, goal=goal, created=change_entry
-                )
-                return action
+        goal = Goal.objects.get(pk=id)
+        change_entry = ChangeEntry.objects.create(by=request.user)
+        action = Action.objects.create(
+            description=d, deadline=dead, goal=goal, created=change_entry
+        )
+        return action

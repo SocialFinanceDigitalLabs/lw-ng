@@ -11,14 +11,14 @@ def is_personal_advisor(user: User) -> bool:
 
 
 def is_young_person(user: User) -> bool:
-    """check if the user is personal advisor"""
+    """check if the user is young person"""
     if user.is_authenticated:
         return YoungPerson.objects.filter(user=user).exists()
     return False
 
 
 def is_manager(user: User) -> bool:
-    """check if the user is personal advisor"""
+    """check if the user is manager"""
     if user.is_authenticated:
         return Manager.objects.filter(user=user).exists()
     return False
