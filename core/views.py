@@ -8,6 +8,7 @@ from core import permissions
 from .forms import (
     ActionEditForm,
     ChangeEntry,
+    ChecklistForm,
     GoalEditForm,
     NewActionForm,
     NewGoalForm,
@@ -244,9 +245,21 @@ def checklist_questions(request, young_person_id, checklist_id):
         questions = checklist.checklist_questions.all()
     except checklist.DoesNotExist:
         raise Http404("Checklist does not exist")
+    form = ChecklistForm()
+    if request.method == "POST":
+        form = ChecklistForm(request.POST)
+        if form.is_valid():
+            form.save()
+            print(form.cleaned_data)
+            messages.success(request, "Checklist updated.")
+        else:
+            print(form.data)
+            print(form.cleaned_data)
+            messages.error(request, "Checklist not saved. Invalid information.")
     context = {
         "yp": yp,
         "questions": questions,
+        "form": form,
     }
     return render(
         request, template_name="core/yp/checklist_questions.html", context=context
