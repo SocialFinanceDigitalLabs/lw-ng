@@ -252,7 +252,7 @@ def checklist_questions(request, young_person_id, checklist_id):
         print(checklist)
         questions = checklist.checklist_questions.all()
         for q in questions:
-            print(q)
+            print(q.text)
     except checklist.DoesNotExist:
         raise Http404("Checklist does not exist")
     if request.method == "POST":
@@ -284,11 +284,14 @@ def checklist_questions(request, young_person_id, checklist_id):
         )
         data = {str(r.question.pk): r.answer for r in responses}
         form = ChecklistForm(data, checklist=checklist)
-        print("responses" + responses)
+        print(f"response: {responses}")
+        print(f"post response: {checklist}")
+        print(f"post response: {yp}")
     context = {
         "yp": yp,
         "questions": questions,
         "form": form,
+        "checklist": checklist,
     }
     return render(
         request, template_name="core/yp/checklist_questions.html", context=context

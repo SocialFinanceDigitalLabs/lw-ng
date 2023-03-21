@@ -6,7 +6,7 @@
 {% if user|is_personal_advisor or user|is_manager %}
   <p>Hello {{request.user.first_name}}! This is where you can update {{yp.user.first_name}}'s checklist.</p>
 {% elif user|is_young_person %}
-  <p>Hello {{yp.user.first_name}}! This is where you can update your checklist.</p>
+  <p>Hello {{yp.user.first_name}}! This is where you can update your {{checklist.title}} checklist.</p>
 {% endif %}
 
 <!--View checklist questions.--> 
