@@ -35,7 +35,7 @@ class YoungPersonFactory(DjangoModelFactory):
         GoalFactory, factory_related_name="young_person", size=lambda: randint(2, 5)
     )
 
-    # Checklist Generation: TODO
+    # Checklist Generation: Add individual checklist data here
 
     @factory.post_generation
     def personal_advisors(self, create, extracted, **kwargs):
