@@ -1,4 +1,5 @@
 from core.factories.goals import GoalFactory
+from core.factories.checklists import ChecklistFactory
 from random import randint
 from django.db.models.signals import post_save
 from factory.django import DjangoModelFactory
