@@ -1,0 +1,389 @@
+#----------------------------
+# Checklists
+#----------------------------
+- model: core.Checklist
+  pk: 1
+  fields:
+    title: Housing
+- model: core.Checklist
+  pk: 2
+  fields:
+    title: Health
+- model: core.Checklist
+  pk: 3
+  fields:
+    title: Relationships
+- model: core.Checklist
+  pk: 4
+  fields:
+    title: Activities
+- model: core.Checklist
+  pk: 5
+  fields:
+    title: Finances
+- model: core.Checklist
+  pk: 6
+  fields:
+    title: Careers
+- model: core.Checklist
+  pk: 7
+  fields:
+    title: Independence
+- model: core.Checklist
+  pk: 8
+  fields:
+    title: Identity
+#----------------------------
+# Housing checklist questions
+#----------------------------
+- model: core.Question
+  pk: 1
+  fields:
+    text: Do you have enough space to yourself where you live?
+    checklist: 1
+- model: core.Question
+  pk: 2
+  fields:
+    text: Do you have heating?
+    checklist: 1
+- model: core.Question
+  pk: 3
+  fields:
+    text: Do you have everything you need where you live?
+    checklist: 1
+- model: core.Question
+  pk: 4
+  fields:
+    text: Do you understand your rights as a tenant for where you live?
+    checklist: 1
+- model: core.Question
+  pk: 5
+  fields:
+    text: Do you feel like you have stability in terms of your housing?
+    checklist: 1
+- model: core.Question
+  pk: 6
+  fields:
+    text: Do you feel safe where you live?
+    checklist: 1
+- model: core.Question
+  pk: 7
+  fields:
+    text: Do you find it easy to get to the places you need to from where you live?
+    checklist: 1
+- model: core.Question
+  pk: 8
+  fields:
+    text: Do you feel like you are getting enough support to meet your housing needs?
+    checklist: 1
+- model: core.Question
+  pk: 9
+  fields:
+    text: Are you on your local housing register?
+    checklist: 1
+- model: core.Question
+  pk: 10
+  fields:
+    text: Is your housing well looked after?
+    checklist: 1
+- model: core.Question
+  pk: 11
+  fields:
+    text: Do you know how long you can expect to be living where you do at the moment?
+    checklist: 1
+- model: core.Question
+  pk: 12
+  fields:
+    text: Do you know where you will move to next?
+    checklist: 1
+- model: core.Question
+  pk: 13
+  fields:
+    text: Do you feel like you know how to manage your housing?
+    checklist: 1
+- model: core.Question
+  pk: 14
+  fields:
+    text: Do you have access to the internet as often as you need?
+    checklist: 1
+#----------------------------
+# Health checklist questions
+#----------------------------
+- model: core.Question
+  pk: 15
+  fields:
+    text: Do you know how to access your GP if you need to?
+    checklist: 2
+- model: core.Question
+  pk: 16
+  fields:
+    text: Do you keep up to date with appointments?
+    checklist: 2
+- model: core.Question
+  pk: 17
+  fields:
+    text: Do you feel healthy?
+    checklist: 2
+- model: core.Question
+  pk: 18
+  fields:
+    text: Do you feel like you are getting enough help to meet your health needs?
+    checklist: 2
+- model: core.Question
+  pk: 19
+  fields:
+    text: Do you know where to go for support with substance use if you need to?
+    checklist: 2
+- model: core.Question
+  pk: 20
+  fields:
+    text: Do you feel like you can manage your emotions?
+    checklist: 2
+- model: core.Question
+  pk: 21
+  fields:
+    text: Do you know where to go for support with your mental health if you need to?
+    checklist: 2
+#----------------------------
+# Relationships checklist questions
+#----------------------------
+- model: core.Question
+  pk: 22
+  fields:
+    text: Do you have contact with family members who are important to you?
+    checklist: 3
+- model: core.Question
+  pk: 23
+  fields:
+    text: Do you have contact with people who are important to you?
+    checklist: 3
+- model: core.Question
+  pk: 24
+  fields:
+    text:  Do you have an adult you can trust?
+    checklist: 3
+- model: core.Question
+  pk: 25
+  fields:
+    text: Do you have people you can go to for help?
+    checklist: 3
+- model: core.Question
+  pk: 26
+  fields:
+    text: Do you feel happy with your friendships?
+    checklist: 3
+- model: core.Question
+  pk: 27
+  fields:
+    text: Do you feel like you are getting enough support to meet your relationship needs?
+    checklist: 3
+- model: core.Question
+  pk: 28
+  fields:
+    text: Do you feel happy with the relationships that you have?
+    checklist: 3
+- model: core.Question
+  pk: 29
+  fields:
+    text: Do you feel safe in your relationships?
+    checklist: 3
+#----------------------------
+# Activities checklist questions
+#----------------------------
+- model: core.Question
+  pk: 30
+  fields:
+    text: Do you have access to sports activities?
+    checklist: 4
+- model: core.Question
+  pk: 31
+  fields:
+    text: Do you have access to other activities you would like to do?
+    checklist: 4
+- model: core.Question
+  pk: 32
+  fields:
+    text: Do you know where you can find out about activites you can do?
+    checklist: 4
+- model: core.Question
+  pk: 33
+  fields:
+    text: Do you feel like you are getting enough support to participate in the activites and sports you want to do?
+    checklist: 4
+#----------------------------
+# Finances checklist questions
+#----------------------------
+- model: core.Question
+  pk: 34
+  fields:
+    text: Do you have a bank account?
+    checklist: 5
+- model: core.Question
+  pk: 35
+  fields:
+    text: Do you have enough money to pay for everything you need and also have a good life?
+    checklist: 5
+- model: core.Question
+  pk: 36
+  fields:
+    text: If you have debt or arrears do you know how to manage them? (not including student loans)
+    checklist: 5
+- model: core.Question
+  pk: 37
+  fields:
+    text: Do you feel confident managing your money?
+    checklist: 5
+- model: core.Question
+  pk: 38
+  fields:
+    text: Do you feel like you are getting enough help to manage your money?
+    checklist: 5
+- model: core.Question
+  pk: 39
+  fields:
+    text: Do you know what financial support you are entitled to?
+    checklist: 5
+#----------------------------
+# Careers checklist questions
+#----------------------------
+- model: core.Question
+  pk: 40
+  fields:
+    text: Are you studying, in training or working?
+    checklist: 6
+- model: core.Question
+  pk: 41
+  fields:
+    text: Do you feel like you have stability in terms of your education or job?
+    checklist: 6
+- model: core.Question
+  pk: 42
+  fields:
+    text: Do you feel like you have the qualifications you need?
+    checklist: 6
+- model: core.Question
+  pk: 43
+  fields:
+    text: Have you got work experience?
+    checklist: 6
+- model: core.Question
+  pk: 44
+  fields:
+    text: Do you know how to get careers advice?
+    checklist: 6
+- model: core.Question
+  pk: 45
+  fields:
+    text: Do you feel like you know how to meet your career goals?
+    checklist: 6
+- model: core.Question
+  pk: 46
+  fields:
+    text: Do you feel happy with what you are currently doing?
+    checklist: 6
+- model: core.Question
+  pk: 47
+  fields:
+    text: Do you feel like you are getting enough help with your education, training or work?
+    checklist: 6
+#----------------------------
+# Independence checklist questions
+#----------------------------
+- model: core.Question
+  pk: 48
+  fields:
+    text: Do you know how to keep safe online?
+    checklist: 7
+- model: core.Question
+  pk: 48
+  fields:
+    text: Do you think that you have enough skills to live by yourself?
+    checklist: 7
+- model: core.Question
+  pk: 50
+  fields:
+    text: Do you feel like you know how to cook?
+    checklist: 7
+- model: core.Question
+  pk: 51
+  fields:
+    text: Do you feel like you are getting enough support to live independently?
+    checklist: 7
+- model: core.Question
+  pk: 52
+  fields:
+    text: Do you have an email address?
+    checklist: 7
+- model: core.Question
+  pk: 53
+  fields:
+    text: Do you feel like you have a say in your plan to independence?
+    checklist: 7
+- model: core.Question
+  pk: 54
+  fields:
+    text: Do you have a passport?
+    checklist: 7
+- model: core.Question
+  pk: 55
+  fields:
+    text: Do you have a birth certificate?
+    checklist: 7
+- model: core.Question
+  pk: 56
+  fields:
+    text: Do you have a driving licence or provisional driving licence?
+    checklist: 7
+- model: core.Question
+  pk: 57
+  fields:
+    text: Do you know what your National Insurance Number/PPSN is?
+    checklist: 7
+#----------------------------
+# Identity checklist questions
+#----------------------------
+- model: core.Question
+  pk: 58
+  fields:
+    text: Do you feel like you are getting enough support to understand your identity?
+    checklist: 8
+- model: core.Question
+  pk: 59
+  fields:
+    text: Do you feel like you have a sense of belonging?
+    checklist: 8
+- model: core.Question
+  pk: 60
+  fields:
+    text: Do you feel like you know your rights?
+    checklist: 8
+- model: core.Question
+  pk: 61
+  fields:
+    text: Do you know as much as you want to about your past?
+    checklist: 8
+- model: core.Question
+  pk: 62
+  fields:
+    text: Do you feel like you know about your culture, religion and race?
+    checklist: 8
+- model: core.Question
+  pk: 63
+  fields:
+    text: Do you feel like your culture, religion and race are respected?
+    checklist: 8
+- model: core.Question
+  pk: 64
+  fields:
+    text: Do you feel like your sexual identity is respected?
+    checklist: 8
+- model: core.Question
+  pk: 65
+  fields:
+    text: Do you feel like you can make your own choices?
+    checklist: 8
+- model: core.Question
+  pk: 66
+  fields:
+    text: If you have an asylum claim, do you understand what is happening at the moment and what will happen next?
+    checklist: 8
