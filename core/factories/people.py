@@ -1,4 +1,5 @@
 from core.factories.goals import GoalFactory
+from core.factories.checklists import ChecklistFactory
 from random import randint
 from django.db.models.signals import post_save
 from factory.django import DjangoModelFactory
@@ -34,7 +35,7 @@ class YoungPersonFactory(DjangoModelFactory):
         GoalFactory, factory_related_name="young_person", size=lambda: randint(2, 5)
     )
 
-    # Checklist Generation: TODO
+    # Checklist Generation: Add individual checklist data here
 
     @factory.post_generation
     def personal_advisors(self, create, extracted, **kwargs):
