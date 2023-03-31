@@ -27,4 +27,5 @@ urlpatterns = [
         views.checklist_questions,
         name="checklist_questions",
     ),
+    path("<int:young_person_id>/checkin/", views.checkin, name="checkin"),
 ]

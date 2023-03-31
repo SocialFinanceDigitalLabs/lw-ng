@@ -2,7 +2,14 @@ from django import forms
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 
-from core.models import Action, ChangeEntry, Goal, YoungPerson
+from core.models import (
+    Action,
+    ChangeEntry,
+    CheckInQuestion,
+    CheckinQuestionAnswer,
+    Goal,
+    YoungPerson,
+)
 
 
 class NewYoungPersonForm(forms.Form):
@@ -72,3 +79,13 @@ class NewActionForm(forms.Form):
             description=d, deadline=dead, goal=goal, created=change_entry
         )
         return action
+
+
+class CheckinForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        questions = CheckInQuestion.objects.all()
+        for question in questions:
+            self.base_fields[str(question.pk)] = forms.ChoiceField(
+                label=question.text, choices=CheckinQuestionAnswer.choices
+            )
+        super().__init__(*args, **kwargs)

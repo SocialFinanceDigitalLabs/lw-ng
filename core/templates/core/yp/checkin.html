@@ -1,0 +1,35 @@
+{% extends "core/yp/base.html" %}
+{% load lw_tags %}
+{% block content %}
+
+{% if user|is_personal_advisor or user|is_manager %}
+  <p>Hello {{request.user.first_name}}! This is where you can update {{yp.user.first_name}}'s mini check in.</p>
+{% elif user|is_young_person %}
+  <p>Hello {{yp.user.first_name}}! This is where you can update your mini check in.</p>
+{% endif %}
+
+<div class="container py-5">
+	<form method="POST">
+        {% csrf_token %}
+		{{ form }}                    
+		<button class="btn btn-primary" type="submit">Submit</button>
+	</form>
+
+{% if user|is_personal_advisor or user|is_manager %}
+<div class="container py-3">
+    <form action="{% url 'yp_index' yp.id %}">
+        <button class="btn btn-primary">Back</button>
+    </form>
+</div>
+{% elif user|is_young_person %}
+    <div class="container py-3">
+        <form action="{% url 'index' %}">
+            <button class="btn btn-primary">Back</button>
+        </form>
+    </div>
+{% endif %}
+
+
+
+
+{% endblock content %}

@@ -8,12 +8,21 @@ from core import permissions
 from .forms import (
     ActionEditForm,
     ChangeEntry,
+    CheckinForm,
     GoalEditForm,
     NewActionForm,
     NewGoalForm,
     NewYoungPersonForm,
 )
-from .models import Action, Checklist, Goal, YoungPerson
+from .models import (
+    Action,
+    CheckInQuestion,
+    CheckInQuestionResponse,
+    CheckInResponse,
+    Checklist,
+    Goal,
+    YoungPerson,
+)
 
 
 @login_required
@@ -251,3 +260,39 @@ def checklist_questions(request, young_person_id, checklist_id):
     return render(
         request, template_name="core/yp/checklist_questions.html", context=context
     )
+
+
+@login_required
+def checkin(request, young_person_id):
+    yp = YoungPerson.objects.get(pk=young_person_id)
+    questions = CheckInQuestion.objects.all()
+    if request.method == "POST":
+        form = CheckinForm(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data)
+            response, _ = CheckInResponse.objects.get_or_create(young_person=yp)
+            for q in questions:
+                q_id = str(q.pk)
+                if q_id in form.cleaned_data:
+                    (
+                        question_response,
+                        _,
+                    ) = CheckInQuestionResponse.objects.get_or_create(
+                        checkin_response=response, question=q
+                    )
+                    question_response.answer = form.cleaned_data[q_id]
+                    question_response.save()
+            messages.success(request, "Checklist updated.")
+        else:
+            messages.error(request, "Checklist not saved. Invalid information.")
+    else:
+        responses = CheckInQuestionResponse.objects.filter(
+            checkin_response__young_person=yp
+        )
+        data = {str(r.question.pk): r.answer for r in responses}
+        form = CheckinForm(data)
+    context = {
+        "yp": yp,
+        "form": form,
+    }
+    return render(request, template_name="core/yp/checkin.html", context=context)

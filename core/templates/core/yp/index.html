@@ -3,6 +3,16 @@
 {% block content %}
   <p>base YP page.</p>
 
+  <h2>Mini check-in</h2>
+
+Answer some quick questions about your situation right now, request help with something if you need it
+
+Last completed:
+
+<form action="{% url 'checkin' yp.id %}">
+  <button class="btn btn-primary">Check-in</button>
+</form>
+
   {% if user|is_personal_advisor or user|is_manager %}
     <!-- if user is pa or manager, show invite young person link -->
     You are viewing {{yp.user.first_name}} {{yp.user.last_name}} page.
