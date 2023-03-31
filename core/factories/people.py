@@ -1,5 +1,4 @@
 from core.factories.goals import GoalFactory
-from core.factories.checklists import ChecklistFactory
 from random import randint
 from django.db.models.signals import post_save
 from factory.django import DjangoModelFactory
@@ -14,8 +13,12 @@ DEFAULT_PASSWORD = "somePassword!"
 
 @factory.django.mute_signals(post_save)
 class UserFactory(factory.django.DjangoModelFactory):
-    username = factory.Faker("email")
-    email = username
+    username = factory.LazyAttribute(
+        lambda o: '{}.{}@test.com'.format(o.first_name.lower(), o.last_name.lower())
+    )
+    email = factory.LazyAttribute(
+        lambda o: o.username
+    )
     first_name = factory.Faker("first_name")
     last_name = factory.Faker("last_name")
     plaintext_password = factory.PostGenerationMethodCall(
