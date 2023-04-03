@@ -83,9 +83,9 @@ class NewActionForm(forms.Form):
 
 class ChecklistForm(forms.Form):
     def __init__(self, *args, checklist, **kwargs):
+        super().__init__(*args, **kwargs)
         questions = Question.objects.filter(checklist=checklist)
         for question in questions:
-            self.base_fields[str(question.pk)] = forms.ChoiceField(
+            self.fields[str(question.pk)] = forms.ChoiceField(
                 label=question.text, choices=ChecklistQuestionAnswer.choices
             )
-        super().__init__(*args, **kwargs)
