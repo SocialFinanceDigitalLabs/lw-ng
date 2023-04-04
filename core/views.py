@@ -282,10 +282,11 @@ def checkin(request, young_person_id):
                     )
                     question_response.answer = form.cleaned_data[q_id]
                     question_response.save()
-            messages.success(request, "Checklist updated.")
+            messages.success(request, "Check-in updated.")
         else:
-            messages.error(request, "Checklist not saved. Invalid information.")
+            messages.error(request, "Check-in not saved. Invalid information.")
     else:
+        print("Not post")
         responses = CheckInQuestionResponse.objects.filter(
             checkin_response__young_person=yp
         )
@@ -294,5 +295,7 @@ def checkin(request, young_person_id):
     context = {
         "yp": yp,
         "form": form,
+        "questions": questions,
     }
+
     return render(request, template_name="core/yp/checkin.html", context=context)

@@ -1,5 +1,6 @@
 {% extends "core/yp/base.html" %}
 {% load lw_tags %}
+{% load material_form %}
 {% block content %}
 
 {% if user|is_personal_advisor or user|is_manager %}
@@ -11,7 +12,7 @@
 <div class="container py-5">
 	<form method="POST">
         {% csrf_token %}
-		{{ form }}                    
+		{% form form=form %}{% endform %}                    
 		<button class="btn btn-primary" type="submit">Submit</button>
 	</form>
 
@@ -28,8 +29,6 @@
         </form>
     </div>
 {% endif %}
-
-
 
 
 {% endblock content %}

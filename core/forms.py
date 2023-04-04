@@ -83,9 +83,13 @@ class NewActionForm(forms.Form):
 
 class CheckinForm(forms.Form):
     def __init__(self, *args, **kwargs):
-        questions = CheckInQuestion.objects.all()
-        for question in questions:
-            self.base_fields[str(question.pk)] = forms.ChoiceField(
-                label=question.text, choices=CheckinQuestionAnswer.choices
-            )
         super().__init__(*args, **kwargs)
+        questions = CheckInQuestion.objects.all()
+        print(questions)
+        for question in questions:
+            self.fields[str(question.pk)] = forms.ChoiceField(
+                label=question.text,
+                widget=forms.RadioSelect,
+                choices=CheckinQuestionAnswer.choices,
+            )
+            print(question.text)
