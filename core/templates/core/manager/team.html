@@ -1,0 +1,12 @@
+{% extends "core/base.html" %}
+{% load webpack_loader material_form static %}
+
+{% block content %}
+    <h1>{{user.first_name}} {{user.last_name}}'s team</h1>
+
+    {% for pa in user.manager.personal_advisors.all %}
+    <li><a href="{% url 'yp' pa.id %}">{{pa.user.first_name}} {{pa.user.last_name}}</a></li>
+    {% endfor %}
+
+
+{% endblock %}

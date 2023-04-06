@@ -44,15 +44,16 @@
     {% if user|is_manager %}
       <!-- if user is manager, show my team link -->
       <li>
-        <a href="#!">My team</a>
+        <a href="{%url 'team'%}">My team</a>
       </li>
     {% endif %}
     {% if user|is_personal_advisor %}
     <!-- if user is pa, show the young people link -->
       <li>
-        <a href="{%url 'yp'%}">Young People</a>
+        <a href="{%url 'yp' pa.id %}">Young People</a>
       </li>
     {% endif %}
-    {% block level_sidebar_links %}{% endblock level_sidebar_links %}
+    {% block pa_level_sidebar_links %}{% endblock pa_level_sidebar_links %}
+    {% block yp_level_sidebar_links %}{% endblock yp_level_sidebar_links %}
   </ul>
 </header>
