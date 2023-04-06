@@ -1,7 +1,7 @@
-{% extends "core/header.html" %}
+{% extends "core/pa/header.html" %}
 {% load lw_tags %}
 
-{% block level_sidebar_links %}
+{% block yp_level_sidebar_links %}
   {% if user|is_personal_advisor or user|is_manager %}
     <!-- show the YP name and derived links if it's the manager/pa -->
     <li>
@@ -15,4 +15,4 @@
     <li><a href="{% url 'checklist' yp.id %}">Checklist</a></li>
 
 
-{% endblock level_sidebar_links %}
+{% endblock yp_level_sidebar_links %}

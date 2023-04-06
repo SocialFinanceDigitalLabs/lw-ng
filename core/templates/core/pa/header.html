@@ -1,0 +1,14 @@
+{% extends "core/header.html" %}
+{% load lw_tags %}
+
+{% block pa_level_sidebar_links %}
+  {% if user|is_manager %}
+    <!-- show the PA name and derived links if it's the manager view -->
+    {% for pa in pa %}
+    <li>
+        <a href="{% url 'yp' pa.id %}">{{pa.user.first_name}} {{pa.user.last_name}}</a>
+    </li>
+    {% endfor %}
+  {% endif %}
+
+{% endblock pa_level_sidebar_links %}

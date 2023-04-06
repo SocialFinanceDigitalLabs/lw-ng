@@ -5,7 +5,7 @@ from core import views
 urlpatterns = [
     path("", views.index, name="index"),
     path("<int:young_person_id>", views.index_yp, name="yp_index"),
-    path("yp", views.yp, name="yp"),
+    path("<int:personal_advisor_id>/yp", views.yp, name="yp"),
     path("invite", views.invite, name="invite"),
     path("<int:young_person_id>/goals", views.goals, name="goals"),
     path("<int:young_person_id>/create_goal", views.create_goal, name="create_goal"),
@@ -27,4 +27,5 @@ urlpatterns = [
         views.checklist_questions,
         name="checklist_questions",
     ),
+    path("team", views.team, name="team"),
 ]
