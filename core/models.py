@@ -144,6 +144,9 @@ class ChecklistResponse(models.Model):
     )
     note = models.TextField(max_length=500, null=True, blank=True)
 
+    class Meta:
+        unique_together = ("checklist", "young_person")
+
 
 class ChecklistQuestionResponse(models.Model):
     checklist_response = models.ForeignKey(
@@ -160,6 +163,9 @@ class ChecklistQuestionResponse(models.Model):
         default=ChecklistQuestionAnswer.NOT_RELEVANT,
     )
     note = models.TextField(max_length=500, null=True, blank=True)
+
+    class Meta:
+        unique_together = ("checklist_response", "question")
 
 
 class Note(models.Model):
