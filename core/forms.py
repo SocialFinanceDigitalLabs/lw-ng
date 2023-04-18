@@ -8,6 +8,9 @@ from core.models import (
     CheckInQuestion,
     CheckinQuestionAnswer,
     Goal,
+    ChecklistQuestionAnswer,
+    Goal,
+    Question,
     YoungPerson,
 )
 
@@ -93,3 +96,13 @@ class CheckinForm(forms.Form):
                 choices=CheckinQuestionAnswer.choices,
             )
             print(question.text)
+
+           
+class ChecklistForm(forms.Form):
+    def __init__(self, *args, checklist, **kwargs):
+        super().__init__(*args, **kwargs)
+        questions = Question.objects.filter(checklist=checklist)
+        for question in questions:
+            self.fields[str(question.pk)] = forms.ChoiceField(
+                label=question.text, choices=ChecklistQuestionAnswer.choices
+            )

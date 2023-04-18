@@ -13,8 +13,12 @@ DEFAULT_PASSWORD = "somePassword!"
 
 @factory.django.mute_signals(post_save)
 class UserFactory(factory.django.DjangoModelFactory):
-    username = factory.Faker("email")
-    email = username
+    username = factory.LazyAttribute(
+        lambda o: '{}.{}@test.com'.format(o.first_name.lower(), o.last_name.lower())
+    )
+    email = factory.LazyAttribute(
+        lambda o: o.username
+    )
     first_name = factory.Faker("first_name")
     last_name = factory.Faker("last_name")
     plaintext_password = factory.PostGenerationMethodCall(
@@ -34,7 +38,7 @@ class YoungPersonFactory(DjangoModelFactory):
         GoalFactory, factory_related_name="young_person", size=lambda: randint(2, 5)
     )
 
-    # Checklist Generation: Add Later
+    # Checklist Generation: Add individual checklist data here
 
     @factory.post_generation
     def personal_advisors(self, create, extracted, **kwargs):

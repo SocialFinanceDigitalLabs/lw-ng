@@ -9,6 +9,7 @@ from .forms import (
     ActionEditForm,
     ChangeEntry,
     CheckinForm,
+    ChecklistForm,
     GoalEditForm,
     NewActionForm,
     NewGoalForm,
@@ -20,6 +21,8 @@ from .models import (
     CheckInQuestionResponse,
     CheckInResponse,
     Checklist,
+    ChecklistQuestionResponse,
+    ChecklistResponse,
     Goal,
     YoungPerson,
 )
@@ -250,12 +253,49 @@ def checklist_questions(request, young_person_id, checklist_id):
     yp = YoungPerson.objects.get(pk=young_person_id)
     try:
         checklist = Checklist.objects.get(pk=checklist_id)
+        print(checklist)
         questions = checklist.checklist_questions.all()
+        for q in questions:
+            print(q.text)
     except checklist.DoesNotExist:
         raise Http404("Checklist does not exist")
+    if request.method == "POST":
+        form = ChecklistForm(request.POST, checklist=checklist)
+        if form.is_valid():
+            print(form.cleaned_data)
+            response, _ = ChecklistResponse.objects.get_or_create(
+                young_person=yp, checklist=checklist
+            )
+            for q in questions:
+                q_id = str(q.pk)
+                if q_id in form.cleaned_data:
+                    (
+                        question_response,
+                        _,
+                    ) = ChecklistQuestionResponse.objects.get_or_create(
+                        checklist_response=response, question=q
+                    )
+                    question_response.answer = form.cleaned_data[q_id]
+                    question_response.save()
+            messages.success(request, "Checklist updated.")
+        else:
+            print(form.data)
+            print(form.cleaned_data)
+            messages.error(request, "Checklist not saved. Invalid information.")
+    else:
+        responses = ChecklistQuestionResponse.objects.filter(
+            checklist_response__young_person=yp, checklist_response__checklist=checklist
+        )
+        data = {str(r.question.pk): r.answer for r in responses}
+        form = ChecklistForm(data, checklist=checklist)
+        print(f"response: {responses}")
+        print(f"post response: {checklist}")
+        print(f"post response: {yp}")
     context = {
         "yp": yp,
         "questions": questions,
+        "form": form,
+        "checklist": checklist,
     }
     return render(
         request, template_name="core/yp/checklist_questions.html", context=context

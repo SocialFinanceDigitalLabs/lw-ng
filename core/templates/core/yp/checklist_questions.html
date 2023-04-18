@@ -1,25 +1,26 @@
 {% extends "core/yp/base.html" %}
 {% load lw_tags %}
+{% load material_form %}
 {% block content %}
 
 {% if user|is_personal_advisor or user|is_manager %}
   <p>Hello {{request.user.first_name}}! This is where you can update {{yp.user.first_name}}'s checklist.</p>
 {% elif user|is_young_person %}
-  <p>Hello {{yp.user.first_name}}! This is where you can update your checklist.</p>
+  <p>Hello {{yp.user.first_name}}! This is where you can update your {{checklist.title}} checklist.</p>
 {% endif %}
 
 <!--View checklist questions.--> 
-<h2>Checklist</h2>
-{% for question in questions %}
-<div class="container py-3">
-    <h5>{{question.text}}</h5>
-</div>
-{% endfor %}
+<div class="container py-5">
+	<form method="POST">
+    {% csrf_token %}
+		{% form form=form %}{% endform %}                  
+		<button class="btn btn-primary" type="submit">Submit</button>
+	</form>
 
-<div class="container py-3">
-    <form action="{% url 'checklist' yp.id %}">
-        <button class="btn btn-primary">Back</button>
-    </form>
+
+  <form action="{% url 'checklist' yp.id %}">
+    <button class="btn btn-primary">Back</button>
+  </form>
 </div>
 
 {% endblock content %}
