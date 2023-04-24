@@ -18,9 +18,7 @@
 	</form>
 
 
-  <form action="{% url 'checklist' yp.id %}">
-    <button class="btn btn-primary">Back</button>
-  </form>
+  <a href="{% url 'checklist' yp.id %}" class="btn btn-primary">Back</a>
 </div>
 
 {% endblock content %}
