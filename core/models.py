@@ -37,6 +37,12 @@ class ChecklistQuestionAnswer(models.TextChoices):
     NOT_RELEVANT = "NOT", _("This isn't relevant to me")
 
 
+class CheckinQuestionAnswer(models.TextChoices):
+    GOOD = "GOOD", _("Good")
+    OK = "OK", _("OK")
+    BAD = "BAD", _("Bad")
+
+
 class NoteType(models.TextChoices):
     PA = "PA", _("Pathway Plan PA")
     MANAGER = "MANAGER", _("Pathway Plan Manager")
@@ -126,6 +132,46 @@ class Question(models.Model):
     checklist = models.ForeignKey(
         Checklist, on_delete=models.CASCADE, related_name="checklist_questions"
     )
+
+
+class CheckInQuestion(models.Model):
+    text = models.TextField(max_length=500)
+    checklist = models.ForeignKey(
+        Checklist, on_delete=models.CASCADE, related_name="checkin_questions"
+    )
+
+
+class CheckInResponse(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(
+        User,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="created_checkin_responses",
+    )
+    young_person = models.ForeignKey(
+        YoungPerson, on_delete=models.CASCADE, related_name="checkin_responses"
+    )
+
+
+class CheckInQuestionResponse(models.Model):
+    checkin_response = models.ForeignKey(
+        CheckInResponse,
+        on_delete=models.CASCADE,
+        related_name="checkin_question_response_instance",
+    )
+    question = models.ForeignKey(
+        CheckInQuestion,
+        on_delete=models.CASCADE,
+        related_name="checkin_question_responses",
+    )
+    answer = models.CharField(
+        choices=CheckinQuestionAnswer.choices,
+        max_length=4,
+        default=CheckinQuestionAnswer.OK,
+    )
+    help_flag = models.BooleanField(default=False)
+    note = models.TextField(max_length=500, null=True, blank=True)
 
 
 class ChecklistResponse(models.Model):

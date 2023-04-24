@@ -5,6 +5,9 @@ from django.forms import ModelForm
 from core.models import (
     Action,
     ChangeEntry,
+    CheckInQuestion,
+    CheckinQuestionAnswer,
+    Goal,
     ChecklistQuestionAnswer,
     Goal,
     Question,
@@ -81,6 +84,20 @@ class NewActionForm(forms.Form):
         return action
 
 
+class CheckinForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        questions = CheckInQuestion.objects.all()
+        print(questions)
+        for question in questions:
+            self.fields[str(question.pk)] = forms.ChoiceField(
+                label=question.text,
+                widget=forms.RadioSelect,
+                choices=CheckinQuestionAnswer.choices,
+            )
+            print(question.text)
+
+           
 class ChecklistForm(forms.Form):
     def __init__(self, *args, checklist, **kwargs):
         super().__init__(*args, **kwargs)
